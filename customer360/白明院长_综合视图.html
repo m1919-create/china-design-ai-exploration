@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白明院长 · 综合视图 | Philips</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #5a6a7a;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  /* ── nav bar ─────────────────────────────────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 44px;
+    background: rgba(0, 26, 72, .95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    color: #fff;
+    opacity: .9;
+  }
+
+  .nav-context {
+    font-size: 11px;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .3px;
+    font-weight: 500;
+  }
+
+  /* ── pill toggle ──────────────────────────────── */
+  .pill {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,.1);
+    border-radius: 99px;
+    padding: 3px;
+    gap: 2px;
+    border: 1px solid rgba(255,255,255,.12);
+  }
+
+  .pill button {
+    padding: 5px 18px;
+    border: none;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .18s, color .18s, box-shadow .18s;
+    background: transparent;
+    color: rgba(255,255,255,.6);
+    letter-spacing: .4px;
+    white-space: nowrap;
+  }
+
+  .pill button.on {
+    background: #fff;
+    color: #001a48;
+    box-shadow: 0 2px 10px rgba(0,0,0,.3);
+  }
+
+  .pill button:hover:not(.on) {
+    color: rgba(255,255,255,.9);
+    background: rgba(255,255,255,.06);
+  }
+
+  /* ── view frames ──────────────────────────────── */
+  .view-wrap {
+    display: none;
+    width: 100%;
+  }
+
+  .view-wrap.on {
+    display: block;
+  }
+
+  .view-wrap iframe {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 44px);
+    border: none;
+    background: transparent;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">PHILIPS</span>
+
+  <div class="pill">
+    <button id="btn-profile" class="on" onclick="switchView('profile', this)">
+      客户画像
+    </button>
+    <button id="btn-brief" onclick="switchView('brief', this)">
+      决策简报
+    </button>
+  </div>
+
+  <span class="nav-context">白明院长 · 兰大一院 · 内部对齐</span>
+</nav>
+
+<div id="wrap-profile" class="view-wrap on">
+  <iframe
+    id="frame-profile"
+    src="白明院长_客户画像_内部对齐.html"
+    title="白明院长 · 客户画像 · 内部对齐">
+  </iframe>
+</div>
+
+<div id="wrap-brief" class="view-wrap">
+  <iframe
+    id="frame-brief"
+    src="白明院长_一页纸决策简报.html"
+    title="白明院长 · 一页纸决策简报">
+  </iframe>
+</div>
+
+<script>
+  function switchView(name, btn) {
+    document.querySelectorAll('.view-wrap').forEach(function(w) {
+      w.classList.remove('on');
+    });
+    document.querySelectorAll('.pill button').forEach(function(b) {
+      b.classList.remove('on');
+    });
+    document.getElementById('wrap-' + name).classList.add('on');
+    btn.classList.add('on');
+    // scroll top when switching
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Auto-fit iframe height to its content
+  function fitFrame(iframe) {
+    try {
+      var doc = iframe.contentDocument || iframe.contentWindow.document;
+      var h = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+      iframe.style.height = Math.max(h, window.innerHeight - 44) + 'px';
+    } catch(e) {
+      // cross-origin guard (shouldn't happen for local files)
+      iframe.style.height = (window.innerHeight - 44) + 'px';
+    }
+  }
+
+  document.querySelectorAll('iframe').forEach(function(f) {
+    f.addEventListener('load', function() { fitFrame(this); });
+  });
+
+  // Also resize on window resize
+  window.addEventListener('resize', function() {
+    document.querySelectorAll('iframe').forEach(function(f) { fitFrame(f); });
+  });
+</script>
+
+</body>
+</html>

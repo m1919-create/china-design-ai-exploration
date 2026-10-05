@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白明院长｜内部客户 360° 决策视图</title>
+<style>
+  :root {
+    --philips-blue: #0B5ED7;
+    --dark-blue: #00126E;
+    --light-blue: #BDF0FF;
+    --aqua: #02ABB1;
+    --light-aqua: #9CF6FB;
+    --dark-aqua: #00666F;
+    --green: #02DA21;
+    --light-green: #ADFFB5;
+    --dark-green: #008800;
+    --gold: #FFCF50;
+    --light-gold: #FCFCC2;
+    --dark-gold: #FCA708;
+    --coral: #F85569;
+    --light-coral: #FFDDEB;
+    --dark-coral: #D43F44;
+    --white: #FFFFFF;
+    --gray-50: #F8F9FA;
+    --gray-200: #E9ECEF;
+    --gray-500: #667085;
+    --ink: #00126E;
+    --page-width: 210mm;
+    --page-height: 297mm;
+    --content-width: 190mm;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--light-blue); }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--light-blue);
+    font-family: "Neue Frutiger World", Frutiger, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .sheet {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    margin: 12px auto;
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  .brand-header {
+    min-height: 19mm;
+    padding: 4mm 10mm;
+    display: grid;
+    grid-template-columns: 27mm minmax(0, 1fr) 52mm;
+    align-items: center;
+    column-gap: 6mm;
+    color: var(--white);
+    background: var(--philips-blue);
+  }
+
+  .brand-logo {
+    display: block;
+    width: 24mm;
+    height: auto;
+  }
+
+  .brand-title h1 {
+    margin: 0;
+    color: var(--white);
+    font-size: 15.5pt;
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: .1pt;
+  }
+
+  .brand-title p {
+    margin: .8mm 0 0;
+    color: var(--white);
+    font-size: 7pt;
+    line-height: 1.25;
+    opacity: .92;
+  }
+
+  .brand-meta {
+    border-left: 1px solid rgba(255, 255, 255, .55);
+    padding-left: 3mm;
+    color: var(--white);
+    font-size: 6.4pt;
+    line-height: 1.3;
+  }
+
+  .brand-meta strong {
+    display: block;
+    margin-bottom: .5mm;
+    font-size: 6.8pt;
+    font-weight: 700;
+  }
+
+  .brand-purpose {
+    margin-top: .8mm;
+    font-style: italic;
+  }
+
+  main {
+    width: var(--content-width);
+    margin: 0 auto;
+    padding: 3mm 0;
+    display: grid;
+    gap: 2mm;
+  }
+
+  section,
+  figure,
+  article,
+  aside,
+  footer { break-inside: avoid; }
+
+  .status-key {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4mm;
+    min-height: 5mm;
+    padding: 1mm 1.5mm;
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+  }
+
+  .status-key p {
+    margin: 0;
+    font-size: 6.5pt;
+    color: var(--gray-500);
+  }
+
+  .status-list,
+  .identity-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4mm;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .identity-tags {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1mm;
+  }
+
+  .identity-tags .badge {
+    width: 100%;
+    justify-content: center;
+    padding: .5mm 1mm;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.7mm;
+    padding: .5mm 1.8mm;
+    border-radius: 999px;
+    color: var(--dark-blue);
+    font-size: 6.1pt;
+    line-height: 1;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .badge--fact { background: var(--light-blue); }
+  .badge--reported { background: var(--light-aqua); }
+  .badge--judgment { background: var(--light-gold); }
+  .badge--confirm { background: var(--light-coral); }
+  .badge--plain { border: 1px solid var(--philips-blue); background: var(--white); }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 2.2mm;
+    margin: 0 0 1.4mm;
+    color: var(--dark-blue);
+  }
+
+  .section-heading::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--philips-blue);
+  }
+
+  .section-number {
+    color: var(--philips-blue);
+    font-size: 7.5pt;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: 9.8pt;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .icon {
+    width: 4.8mm;
+    height: 4.8mm;
+    flex: 0 0 auto;
+    color: currentColor;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1.34fr .96fr;
+    gap: 3mm;
+  }
+
+  .profile-summary,
+  .fact-panel {
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .profile-summary {
+    padding: 2.5mm;
+    border-top: 2px solid var(--philips-blue);
+  }
+
+  .identity-line {
+    display: grid;
+    grid-template-columns: 9mm minmax(0, 1fr);
+    gap: 2mm;
+    align-items: start;
+  }
+
+  .person-mark {
+    width: 8.5mm;
+    height: 8.5mm;
+    display: grid;
+    place-items: center;
+    color: var(--philips-blue);
+    border: 1px solid var(--philips-blue);
+  }
+
+  .person-mark .icon {
+    width: 5mm;
+    height: 5mm;
+  }
+
+  .person-name {
+    margin: 0;
+    color: var(--dark-blue);
+    font-size: 14pt;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .person-role {
+    margin: .7mm 0 1.2mm;
+    color: var(--gray-500);
+    font-size: 6.9pt;
+    line-height: 1.35;
+  }
+
+  .profile-thesis {
+    margin: 1.7mm 0 0;
+    padding: 1.8mm 2.2mm;
+    color: var(--dark-blue);
+    background: var(--light-gold);
+    border-left: 3px solid var(--dark-gold);
+    font-size: 7.1pt;
+    line-height: 1.38;
+  }
+
+  .profile-thesis strong { font-weight: 700; }
+
+  .meeting-lens {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 1.5mm;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .lens-item {
+    min-width: 0;
+    padding: 1.5mm 2mm 0;
+    border-right: 1px solid var(--gray-200);
+  }
+
+  .lens-item:first-child { padding-left: 0; }
+  .lens-item:last-child { padding-right: 0; border-right: 0; }
+
+  .lens-item dt {
+    margin: 0 0 .5mm;
+    color: var(--philips-blue);
+    font-size: 6.1pt;
+    font-weight: 700;
+  }
+
+  .lens-item dd {
+    margin: 0;
+    color: var(--dark-blue);
+    font-size: 6.5pt;
+    line-height: 1.28;
+    font-weight: 600;
+  }
+
+  .fact-panel {
+    padding: 2.5mm;
+    border-top: 2px solid var(--aqua);
+  }
+
+  .panel-kicker {
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+    margin: 0 0 1.3mm;
+    color: var(--dark-aqua);
+    font-size: 6.5pt;
+    font-weight: 700;
+  }
+
+  .key-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2mm;
+    margin: 0;
+  }
+
+  .key-facts div {
+    min-width: 0;
+    padding: 1mm 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .key-facts dt {
+    margin: 0 0 .3mm;
+    color: var(--gray-500);
+    font-size: 6.2pt;
+    line-height: 1.15;
+  }
+
+  .key-facts dd {
+    margin: 0;
+    color: var(--dark-blue);
+    font-size: 6.5pt;
+    line-height: 1.22;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3mm;
+  }
+
+  .agenda-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .agenda-card--network { border-top: 3px solid var(--aqua); }
+  .agenda-card--clinical { border-top: 3px solid var(--philips-blue); }
+  .agenda-card--policy { border-top: 3px solid var(--dark-gold); }
+
+  .agenda-head {
+    display: grid;
+    grid-template-columns: 5mm minmax(0, 1fr);
+    gap: 1.3mm;
+    align-items: center;
+    padding: 1.8mm 2.2mm 1mm;
+  }
+
+  .agenda-head .icon { width: 4mm; height: 4mm; color: var(--philips-blue); }
+
+  .agenda-head h3 {
+    margin: 0;
+    color: var(--dark-blue);
+    font-size: 8pt;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .agenda-status { padding: 0 2.2mm 1mm; }
+
+  .agenda-list {
+    margin: 0;
+    padding: 0 2.2mm 1.5mm 5.5mm;
+    color: var(--dark-blue);
+    font-size: 6.4pt;
+    line-height: 1.27;
+  }
+
+  .agenda-list li { margin: 0 0 .7mm; padding-left: .2mm; }
+  .agenda-list li:last-child { margin-bottom: 0; }
+
+  .agenda-list strong {
+    color: var(--philips-blue);
+    font-weight: 700;
+  }
+
+  .trigger {
+    margin-top: auto;
+    padding: 1.5mm 2.2mm;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    color: var(--dark-blue);
+    font-size: 6.2pt;
+    line-height: 1.25;
+  }
+
+  .trigger strong {
+    display: block;
+    margin-bottom: .3mm;
+    color: var(--philips-blue);
+    font-size: 6pt;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3mm;
+  }
+
+  .approach-panel {
+    padding: 2mm 2.5mm;
+    border: 1px solid var(--gray-200);
+  }
+
+  .approach-panel--do {
+    background: var(--light-green);
+    border-left: 3px solid var(--dark-green);
+  }
+
+  .approach-panel--avoid {
+    background: var(--light-coral);
+    border-left: 3px solid var(--dark-coral);
+  }
+
+  .approach-title {
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+    margin: 0 0 1mm;
+    color: var(--dark-blue);
+    font-size: 7.5pt;
+    font-weight: 700;
+  }
+
+  .approach-title .icon { width: 3.5mm; height: 3.5mm; }
+
+  .approach-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8mm 3mm;
+    margin: 0;
+    padding: 0 0 0 4mm;
+    color: var(--dark-blue);
+    font-size: 6.3pt;
+    line-height: 1.25;
+  }
+
+  .approach-list li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  .stakeholder-figure { margin: 0; }
+
+  .network-canvas {
+    position: relative;
+    width: 190mm;
+    height: 47mm;
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    overflow: hidden;
+  }
+
+  .network-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .network-lines line,
+  .network-lines polyline {
+    fill: none;
+    stroke: var(--philips-blue);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+  }
+
+  .network-lines text {
+    fill: var(--gray-500);
+    font-family: "Neue Frutiger World", Frutiger, "Noto Sans SC", "PingFang SC", sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    text-anchor: middle;
+    paint-order: stroke;
+    stroke: var(--white);
+    stroke-width: 10px;
+  }
+
+  .stakeholders {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stakeholder {
+    position: absolute;
+    padding: 1.3mm 1.5mm;
+    color: var(--dark-blue);
+    background: var(--white);
+    border: 1px solid var(--philips-blue);
+    font-size: 5.9pt;
+    line-height: 1.2;
+    overflow: hidden;
+  }
+
+  .stakeholder strong {
+    display: block;
+    margin-bottom: .5mm;
+    color: var(--dark-blue);
+    font-size: 6.9pt;
+    line-height: 1.1;
+  }
+
+  .stakeholder small {
+    display: block;
+    margin-top: .5mm;
+    color: var(--gray-500);
+    font-size: 6.1pt;
+    line-height: 1.2;
+  }
+
+  .stakeholder .badge {
+    min-height: 3mm;
+    margin-top: .5mm;
+    padding: .35mm 1.2mm;
+    font-size: 6pt;
+  }
+
+  .stakeholder--bai {
+    left: 72mm;
+    top: 14mm;
+    width: 46mm;
+    min-height: 14mm;
+    color: var(--white);
+    background: var(--dark-blue);
+    border-color: var(--dark-blue);
+    text-align: center;
+  }
+
+  .stakeholder--bai strong,
+  .stakeholder--bai small { color: var(--white); }
+
+  .stakeholder--lei {
+    left: 0;
+    top: 0;
+    width: 54mm;
+    min-height: 17mm;
+    background: var(--light-gold);
+    border-color: var(--dark-gold);
+  }
+
+  .stakeholder--zhang {
+    left: 137mm;
+    top: 0;
+    width: 53mm;
+    min-height: 15mm;
+    background: var(--light-aqua);
+    border-color: var(--dark-aqua);
+  }
+
+  .stakeholder--cardio {
+    left: 0;
+    top: 30mm;
+    width: 44mm;
+    min-height: 14mm;
+  }
+
+  .stakeholder--nurse {
+    left: 145mm;
+    top: 28mm;
+    width: 45mm;
+    min-height: 15mm;
+    background: var(--light-green);
+    border-color: var(--dark-green);
+  }
+
+  .stakeholder--equipment {
+    left: 52mm;
+    top: 32mm;
+    width: 40mm;
+    min-height: 12mm;
+    background: var(--light-coral);
+    border-color: var(--dark-coral);
+  }
+
+  .stakeholder--construction {
+    left: 98mm;
+    top: 32mm;
+    width: 40mm;
+    min-height: 12mm;
+    background: var(--light-coral);
+    border-color: var(--dark-coral);
+  }
+
+  .influence {
+    display: grid;
+    grid-template-columns: repeat(3, 5mm);
+    gap: .8mm;
+    justify-content: center;
+    margin-top: .6mm;
+  }
+
+  .influence span {
+    display: block;
+    height: 1.2mm;
+    background: rgba(255, 255, 255, .28);
+    border: 1px solid rgba(255, 255, 255, .7);
+  }
+
+  .influence span.is-active { background: var(--white); }
+
+  .figure-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 4mm;
+    margin-top: .9mm;
+    color: var(--gray-500);
+    font-size: 5.9pt;
+    line-height: 1.28;
+  }
+
+  .figure-caption strong { color: var(--dark-blue); }
+
+  .next-step {
+    padding: 2mm 2.6mm;
+    background: var(--light-blue);
+    border-left: 3px solid var(--philips-blue);
+  }
+
+  .next-step h2 {
+    margin: 0 0 .8mm;
+    color: var(--dark-blue);
+    font-size: 8pt;
+    line-height: 1.2;
+  }
+
+  .message-line {
+    margin: 0 0 1mm;
+    color: var(--dark-blue);
+    font-size: 7pt;
+    line-height: 1.3;
+  }
+
+  .action-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3mm;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: action;
+  }
+
+  .action-list li {
+    position: relative;
+    min-height: 6mm;
+    padding: 0 0 0 6mm;
+    color: var(--dark-blue);
+    font-size: 6.3pt;
+    line-height: 1.25;
+    counter-increment: action;
+  }
+
+  .action-list li::before {
+    content: counter(action, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--philips-blue);
+    font-size: 8.5pt;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .next-number {
+    display: inline-block;
+    margin-right: 2mm;
+    color: var(--philips-blue);
+  }
+
+  .document-footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5mm;
+    padding-top: 1mm;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-500);
+    font-size: 6pt;
+    line-height: 1.25;
+  }
+
+  .document-footer p { margin: 0; }
+  .document-footer strong { color: var(--dark-blue); }
+  .document-owner { text-align: right; white-space: nowrap; }
+
+  @page { size: A4 portrait; margin: 0; }
+
+  @media print {
+    html,
+    body { background: var(--white); }
+
+    body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+    .sheet {
+      width: var(--page-width);
+      min-height: var(--page-height);
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    html,
+    body { background: var(--white); }
+
+    .sheet {
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      overflow: visible;
+    }
+
+    .brand-header {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 28px 24px;
+    }
+
+    .brand-logo { width: 118px; }
+    .brand-title h1 { font-size: 25px; }
+    .brand-title p,
+    .brand-meta { font-size: 13px; }
+    .brand-meta { padding-left: 0; border-left: 0; }
+
+    main {
+      width: 100%;
+      padding: 22px 20px 28px;
+      gap: 24px;
+    }
+
+    .status-key,
+    .profile-grid,
+    .agenda-grid,
+    .approach-grid,
+    .action-list { grid-template-columns: 1fr; }
+
+    .status-key { align-items: flex-start; flex-direction: column; }
+    .status-key p,
+    .badge,
+    .person-role,
+    .profile-thesis,
+    .lens-item dt,
+    .lens-item dd,
+    .panel-kicker,
+    .key-facts dt,
+    .key-facts dd,
+    .agenda-list,
+    .trigger,
+    .approach-list,
+    .message-line,
+    .action-list li,
+    .figure-caption,
+    .document-footer { font-size: 15px; }
+
+    .section-heading h2 { font-size: 19px; }
+    .agenda-head h3,
+    .approach-title,
+    .next-step h2 { font-size: 17px; }
+    .person-name { font-size: 28px; }
+
+    .meeting-lens,
+    .key-facts,
+    .approach-list { grid-template-columns: 1fr; }
+
+    .lens-item {
+      padding: 12px 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .lens-item:last-child { border-bottom: 0; }
+
+    .network-canvas {
+      width: 100%;
+      height: auto;
+      padding: 16px;
+      overflow: visible;
+    }
+
+    .network-lines { display: none; }
+
+    .stakeholders {
+      position: static;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stakeholder,
+    .stakeholder--bai,
+    .stakeholder--lei,
+    .stakeholder--zhang,
+    .stakeholder--cardio,
+    .stakeholder--nurse,
+    .stakeholder--equipment,
+    .stakeholder--construction {
+      position: static;
+      width: auto;
+      min-height: 0;
+      padding: 14px;
+      font-size: 15px;
+      text-align: left;
+    }
+
+    .stakeholder strong { font-size: 17px; }
+    .stakeholder small,
+    .stakeholder .badge { font-size: 13px; }
+    .influence { justify-content: start; }
+    .figure-caption,
+    .document-footer { grid-template-columns: 1fr; display: grid; }
+    .document-owner { text-align: left; white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="brand-header">
+    <img
+      class="brand-logo"
+      src="../assets/Philips_logo_white_2025_RGB.png"
+      width="1920"
+      height="543"
+      alt="Philips">
+    <div class="brand-title">
+      <h1 id="document-title">白明院长｜内部客户 360° 决策视图</h1>
+      <p>把人物、战略、决策动机、沟通方式与项目影响网络放在一页内对齐</p>
+    </div>
+    <div class="brand-meta">
+      <strong>会议准备｜内部对齐使用 · 请勿外发</strong>
+      内容基线：2026-08-21<br>
+      视觉更新：2026-08-24
+      <div class="brand-purpose" lang="en">better care for more people</div>
+    </div>
+  </header>
+
+  <main>
+    <aside class="status-key" aria-label="信息状态说明">
+      <ul class="status-list">
+        <li><span class="badge badge--fact">公开事实</span></li>
+        <li><span class="badge badge--reported">公开主张／报道</span></li>
+        <li><span class="badge badge--judgment">内部判断</span></li>
+        <li><span class="badge badge--confirm">待确认</span></li>
+      </ul>
+      <p>颜色只辅助定位；每条判断同时保留文字状态。</p>
+    </aside>
+
+    <section aria-labelledby="profile-heading">
+      <div class="section-heading">
+        <span class="section-number">01</span>
+        <h2 id="profile-heading">人物与决策镜头</h2>
+      </div>
+
+      <div class="profile-grid">
+        <article class="profile-summary">
+          <div class="identity-line">
+            <div class="person-mark" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="7" r="4"></circle>
+                <path d="M4 22v-3c0-4 3-7 8-7s8 3 8 7v3"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="person-name">白明</h3>
+              <p class="person-role">兰州大学第一医院院长｜心血管介入主任医师、教授</p>
+              <ul class="identity-tags" aria-label="身份标签">
+                <li><span class="badge badge--plain">甘肃省政协委员</span></li>
+                <li><span class="badge badge--plain">农工党中央委员</span></li>
+                <li><span class="badge badge--plain">甘肃省领军人才</span></li>
+                <li><span class="badge badge--plain">在兰大一院成长 25 年</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="profile-thesis">
+            <span class="badge badge--judgment">内部判断</span>
+            <strong>“技术出身的战略型院长”。</strong>兼具介入术者与省级卫生政策参与者身份。决策兼看临床先进性与循证证据、省域影响力、医保控费，以及可复制的政策价值。<strong>不是买设备的人，是搭体系、要话语权的人。</strong>
+          </p>
+
+          <dl class="meeting-lens" aria-label="会议对话镜头">
+            <div class="lens-item">
+              <dt>对话入口</dt>
+              <dd>临床价值与循证证据</dd>
+            </div>
+            <div class="lens-item">
+              <dt>方案框架</dt>
+              <dd>省域医共体的心血管旗舰落点</dd>
+            </div>
+            <div class="lens-item">
+              <dt>统一口径</dt>
+              <dd>共建省域智慧心脏中心</dd>
+            </div>
+          </dl>
+        </article>
+
+        <aside class="fact-panel" aria-label="白明关键事实">
+          <p class="panel-kicker">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 3h16v18H4z"></path>
+              <path d="M8 7h8M8 11h8M8 15h5"></path>
+            </svg>
+            关键事实
+            <span class="badge badge--fact">公开资料</span>
+          </p>
+          <dl class="key-facts">
+            <div><dt>出生</dt><dd>1976.02</dd></div>
+            <div><dt>党派</dt><dd>农工党</dd></div>
+            <div><dt>成长</dt><dd>兰大一院 25 年</dd></div>
+            <div><dt>专长</dt><dd>复杂冠心病／结构心</dd></div>
+            <div><dt>危重</dt><dd>ECMO · VA-ECMO + IABP</dd></div>
+            <div><dt>前沿</dt><dd>肿瘤心血管 · D-SPECT · AI</dd></div>
+            <div><dt>政治</dt><dd>省政协 · 农工党中央委员</dd></div>
+            <div><dt>荣誉</dt><dd>甘肃医学科技一等奖 × 2</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section aria-labelledby="agenda-heading">
+      <div class="section-heading">
+        <span class="section-number">02</span>
+        <h2 id="agenda-heading">战略议程与决策热键</h2>
+      </div>
+
+      <div class="agenda-grid">
+        <article class="agenda-card agenda-card--network">
+          <div class="agenda-head">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="5" r="3"></circle>
+              <circle cx="5" cy="18" r="3"></circle>
+              <circle cx="19" cy="18" r="3"></circle>
+              <path d="M10 7.5 6.5 15M14 7.5l3.5 7.5M8 18h8"></path>
+            </svg>
+            <h3>省域智慧医共体</h3>
+          </div>
+          <div class="agenda-status"><span class="badge badge--reported">公开主张／报道</span></div>
+          <ul class="agenda-list">
+            <li>政协主张：临床 AI、科研 AI、随访 AI，加数字人随访。</li>
+            <li>公开报道：留治率 +30%；诊断准确 +20%；精准转诊 +10%。</li>
+            <li>自陈痛点：随访断层、资源治理脱节、科研转化慢。</li>
+          </ul>
+          <p class="trigger"><strong>决策热键｜省域影响力与政策</strong>能进入政协建言、形成“甘肃模式”并获上级认可的方案，内部判断权重较高。</p>
+        </article>
+
+        <article class="agenda-card agenda-card--clinical">
+          <div class="agenda-head">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21S3 16 3 9.5C3 6.5 5 4 8 4c1.8 0 3.2.9 4 2 0.8-1.1 2.2-2 4-2 3 0 5 2.5 5 5.5C21 16 12 21 12 21Z"></path>
+              <path d="M7 12h3l1.5-3 2.5 6 1.5-3H18"></path>
+            </svg>
+            <h3>学科与技术制高点</h3>
+          </div>
+          <div class="agenda-status">
+            <span class="badge badge--fact">公开事实</span>
+            <span class="badge badge--judgment">内部判断</span>
+          </div>
+          <ul class="agenda-list">
+            <li><strong>公开事实：</strong>2026.05 国产介入机器人“甘青宁新首例”。</li>
+            <li><strong>公开事实：</strong>甘肃 AMI 区域救治网络：代表作，已获奖。</li>
+            <li><strong>公开事实：</strong>2026.07 省医学会大会多项荣誉；<strong>内部判断：</strong>话语权上升。</li>
+          </ul>
+          <p class="trigger"><strong>决策热键｜学术与临床领先</strong>他首先是术者。超低辐射／造影剂、多模态导航和复杂介入证据链优先于商业话术。</p>
+        </article>
+
+        <article class="agenda-card agenda-card--policy">
+          <div class="agenda-head">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 3h10l4 4v14H5z"></path>
+              <path d="M15 3v5h4M8 12h8M8 16h8"></path>
+            </svg>
+            <h3>区域外延与政策价值</h3>
+          </div>
+          <div class="agenda-status">
+            <span class="badge badge--fact">公开事实</span>
+            <span class="badge badge--judgment">内部判断</span>
+          </div>
+          <ul class="agenda-list">
+            <li><strong>公开事实：</strong>2026.07 牵头平凉多机构共建协作医院。</li>
+            <li><strong>内部判断：</strong>关注医保控费、质量监管和基层可及性。</li>
+            <li><strong>内部判断：</strong>目标是“甘肃模式”可复制、能被上级看见。</li>
+          </ul>
+          <p class="trigger"><strong>决策热键｜可持续与控费</strong>辐射／造影剂下降、医保效率和可量化 ROI，回应其“绿色智慧医院”主张。</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="approach-heading">
+      <div class="section-heading">
+        <span class="section-number">03</span>
+        <h2 id="approach-heading">沟通打法</h2>
+      </div>
+
+      <div class="approach-grid">
+        <article class="approach-panel approach-panel--do">
+          <h3 class="approach-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m4 13 5 5L20 6"></path>
+            </svg>
+            建议推进
+          </h3>
+          <ul class="approach-list">
+            <li>沿用其语言：“三引擎”“随访 AI + 数字人”“绿色智慧医院”。</li>
+            <li>先谈临床价值与循证，再谈商业与投资。</li>
+            <li>将方案定位为“省域医共体的心血管旗舰落点”。</li>
+            <li>以 Mayo、千叶西、麻省总院作为国际参照。</li>
+            <li>强调可复制、可被政策／上级看见的示范价值。</li>
+          </ul>
+        </article>
+
+        <article class="approach-panel approach-panel--avoid">
+          <h3 class="approach-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 5l14 14M19 5 5 19"></path>
+            </svg>
+            需要避免
+          </h3>
+          <ul class="approach-list">
+            <li>不以“卖设备”切入：他要体系，不要单品。</li>
+            <li>不只谈院内高精尖；必须纳入基层／医共体。</li>
+            <li>不空谈概念；必须有数据支撑。</li>
+            <li>不与国产机器人“首例”叙事对立；要衔接。</li>
+            <li>不越过科室与护理诉求；护士长关注点已被点名。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="stakeholder-heading">
+      <div class="section-heading">
+        <span class="section-number">04</span>
+        <h2 id="stakeholder-heading">兰大一项目影响网络</h2>
+      </div>
+
+      <figure class="stakeholder-figure">
+        <div class="network-canvas">
+          <svg class="network-lines" viewBox="0 0 1900 450" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="540" y1="95" x2="720" y2="185" stroke-width="5"></line>
+            <line x1="1370" y1="85" x2="1180" y2="185" stroke-width="4"></line>
+            <line x1="440" y1="355" x2="720" y2="235" stroke-width="3"></line>
+            <line x1="1450" y1="345" x2="1180" y2="235" stroke-width="4"></line>
+            <polyline points="950,280 950,320 720,375" stroke-width="3"></polyline>
+            <polyline points="950,320 1180,375" stroke-width="3"></polyline>
+            <text x="630" y="125">前置对齐</text>
+            <text x="1275" y="120">超声接口</text>
+            <text x="540" y="330">技术把关</text>
+            <text x="1320" y="315">流程与耗材</text>
+            <text x="950" y="315">项目落地</text>
+          </svg>
+
+          <ol class="stakeholders">
+            <li class="stakeholder stakeholder--bai">
+              <strong>白明｜院长</strong>
+              最终决策 · 愿景主导
+              <small>内部判断｜主导</small>
+              <div class="influence" role="img" aria-label="项目影响力：主导，三档中的三档">
+                <span class="is-active"></span><span class="is-active"></span><span class="is-active"></span>
+              </div>
+            </li>
+
+            <li class="stakeholder stakeholder--lei">
+              <strong>雷军强｜副院长</strong>
+              放射科主任 · 甘肃省放射影像临床医学中心主任
+              <small>兰大一项目权重大｜相关信息已确认</small>
+              <span class="badge badge--judgment">内部判断：较强影响</span>
+            </li>
+
+            <li class="stakeholder stakeholder--zhang">
+              <strong>张璐｜副主任</strong>
+              心脏中心专设超声科 · 心脏超声承担方
+              <small>多模态导航／超声整合关键接口</small>
+              <span class="badge badge--judgment">关键用户／影响者</span>
+            </li>
+
+            <li class="stakeholder stakeholder--cardio">
+              <strong>心内科主任／术者</strong>
+              技术把关
+              <span class="badge badge--confirm">姓名待确认</span>
+              <span class="badge badge--judgment">一般影响</span>
+            </li>
+
+            <li class="stakeholder stakeholder--nurse">
+              <strong>导管室护士长</strong>
+              重度用户 · 流程／耗材／日常
+              <small>高频影响</small>
+              <span class="badge badge--judgment">关键影响者</span>
+            </li>
+
+            <li class="stakeholder stakeholder--equipment">
+              <strong>设备处处长</strong>
+              设备采购 · 预算审核
+              <span class="badge badge--confirm">姓名待确认</span>
+            </li>
+
+            <li class="stakeholder stakeholder--construction">
+              <strong>基建处处长</strong>
+              导管室改建 · 空间规划
+              <span class="badge badge--confirm">姓名待确认</span>
+            </li>
+          </ol>
+        </div>
+        <figcaption class="figure-caption">
+          <span><strong>读图：</strong>线条仅表达项目影响，不代表组织汇报关系；线宽表示内部估计的影响程度。</span>
+          <span>除已标注确认的信息外，影响权重均为内部工作假设，需现场验证。</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="next-step" aria-labelledby="next-heading">
+      <h2 id="next-heading"><span class="next-number">05</span>内部下一步</h2>
+      <p class="message-line"><strong>统一口径：</strong>对外一律以“共建省域智慧心脏中心”切入，而非“未来导管室卖点”。</p>
+      <ol class="action-list">
+        <li>售前两周内补齐干系人图与各自价值驱动。</li>
+        <li>备好对标医院 ROI 与循证包。</li>
+        <li>由术者话题切入，用其政协主张收口，导向共创工作坊。</li>
+      </ol>
+    </section>
+
+    <footer class="document-footer">
+      <p><strong>资料基线：</strong>兰大一院官网履历；兰州大学统战部（2026-01-28）；中国日报公开报道（2026-05）；其他公开报道。留治率、诊断准确率、精准转诊等数据口径需会前复核。干系人影响与客户动机为内部分析，不应作为客户自述。</p>
+      <p class="document-owner"><strong>Philips China Central MKT</strong><br>内部资料 · 请勿外发</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

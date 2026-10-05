@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Asset Lifecycle Management Demo</title>
+  <style>
+    :root{--blue:#0b5ed7;--deep:#00126e;--ink:#102544;--muted:#52647c;--line:#d5dfeb;--paper:#f5f8fc}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:"Neue Frutiger World","PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:#eaf0f6}
+    body{display:grid;place-items:center}.slide{position:relative;width:1920px;height:1080px;overflow:hidden;background:#fff;transform-origin:center;box-shadow:0 24px 80px rgba(13,34,72,.15)}
+    .topline{height:16px;background:var(--blue)}.back{position:absolute;top:34px;left:92px;z-index:2;font-size:15px;font-weight:800;color:var(--blue);text-decoration:none;border-bottom:1px solid currentColor}header{display:flex;justify-content:space-between;align-items:flex-start;margin:76px 92px 0}
+    .eyebrow{margin:0 0 13px;font-size:18px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}h1{margin:0;font-size:54px;line-height:1.08;letter-spacing:-1.4px;color:var(--deep)}
+    .subtitle{margin:15px 0 0;font-size:22px;line-height:1.4;color:var(--muted)}.logo{width:164px;margin-top:4px}.flow{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:24px;height:695px;margin:22px 92px 0}
+    .panel{padding:20px;border:1px solid var(--line);border-top:8px solid var(--accent);background:var(--paper);overflow:hidden}
+    .panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.tag{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+    h2{margin:7px 0 0;font-size:27px;line-height:1.2;color:var(--deep)}.panel-note{max-width:360px;margin:0;font-size:15px;line-height:1.35;text-align:right;color:var(--muted)}
+    .image-wrap{display:grid;place-items:center;padding:12px;background:#fff;border:1px solid var(--line)}.image-wrap img{display:block;max-width:100%;max-height:100%;object-fit:contain}.primary .image-wrap{height:430px}
+    .evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:13px;background:#fff;border:1px solid var(--line)}.evidence div{padding:12px 14px;border-left:1px solid var(--line)}.evidence div:first-child{border-left:0}.evidence strong{display:block;margin-bottom:4px;font-size:13px;color:var(--deep)}.evidence span{font-size:12px;line-height:1.3;color:var(--muted)}
+    .support{display:grid;grid-template-rows:1fr 1fr;gap:18px;min-width:0}.support .panel{padding:16px}.support .panel-head{display:block;margin-bottom:10px}.support h2{font-size:20px}.support .panel-note{display:none}.support .image-wrap{height:222px;padding:8px}
+    footer{position:absolute;left:92px;right:92px;bottom:34px;display:flex;align-items:center;justify-content:space-between;padding-top:15px;border-top:2px solid var(--blue);font-size:15px;color:var(--muted)}footer strong{color:var(--deep)}
+    @media(max-width:1920px),(max-height:1080px){.slide{transform:scale(min(calc(100vw / 1920),calc(100vh / 1080)))}}
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <div class="topline"></div><a class="back" href="index.html">← Back to AI exploration</a>
+    <header>
+      <div><p class="eyebrow">Content demo · AI in marketing</p><h1>Microsoft-based asset lifecycle management</h1><p class="subtitle">以结构化 metadata 为底座，连接用户工作流、执行文件与正式发布资产。</p></div>
+      <img class="logo" src="assets/Philips_logo_blue_2025_RGB.png" alt="Philips">
+    </header>
+    <section class="flow">
+      <article class="panel primary" style="--accent:#0b5ed7"><div class="panel-head"><div><div class="tag">01 · Live execution</div><h2>SharePoint 中的文件、审批与 metadata 同步管理</h2></div><p class="panel-note">真实执行界面展示 WIP 文件、审批状态和资产属性，让每个 asset 的状态可见、可追踪。</p></div><div class="image-wrap"><img src="assets/sharepoint-approval-properties.png" alt="SharePoint asset approval status and properties"></div><div class="evidence"><div><strong>File state</strong><span>WIP 文件留在执行文件库</span></div><div><strong>Approval</strong><span>Approved / Not submitted 状态清晰可见</span></div><div><strong>Properties</strong><span>Metadata 与每个 asset 一起沉淀</span></div></div></article>
+      <aside class="support">
+        <article class="panel" style="--accent:#6a55c8"><div class="panel-head"><div><div class="tag">02 · Operating architecture</div><h2>一个数据底座 · 两个工作界面 · 两个文件区</h2></div></div><div class="image-wrap"><img src="assets/asset-lifecycle-target-architecture.png" alt="Asset lifecycle target architecture"></div></article>
+        <article class="panel" style="--accent:#168541"><div class="panel-head"><div><div class="tag">03 · Metadata model</div><h2>五类 metadata 支撑完整生命周期</h2></div></div><div class="image-wrap"><img src="assets/asset-metadata-taxonomy.png" alt="Asset metadata taxonomy"></div></article>
+      </aside>
+    </section>
+    <footer><strong>Design Team SharePoint = WIP / execution</strong><span>Central Marketing Portal SharePoint = approved / released assets</span></footer>
+  </main>
+  <script>window.__ready=true;</script>
+</body>
+</html>

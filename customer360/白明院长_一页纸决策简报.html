@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>致白明院长 · 一页纸决策简报</title>
+<style>
+  :root{
+    --blue:#0b3d91; --blue2:#1474c4; --cyan:#0aa2c0; --ink:#12233b;
+    --grey:#5b6b7d; --line:#d6e0ea; --bg:#f4f8fc; --accent:#e8462d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#8a97a6;padding:14px;}
+  .page{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:12mm 12mm 10mm;
+    box-shadow:0 2px 20px rgba(0,0,0,.18);display:flex;flex-direction:column;}
+  .brandbar{background:#002d72;color:#fff;padding:9px 12mm;margin:-12mm -12mm 0;
+    display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .brandbar .wm{font-size:17px;font-weight:800;letter-spacing:4px;}
+  .brandbar .tl{margin-left:auto;font-size:9px;font-style:italic;opacity:.75;letter-spacing:.4px;}
+    box-shadow:0 6px 26px rgba(0,0,0,.25);display:flex;flex-direction:column;}
+  /* header */
+  .hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--blue);padding-bottom:7px;}
+  .hd .eyebrow{color:var(--blue2);font-size:11px;letter-spacing:2px;font-weight:700;}
+  .hd h1{font-size:22px;color:var(--blue);margin-top:3px;letter-spacing:1px;}
+  .hd .sub{font-size:11px;color:var(--grey);margin-top:3px;}
+  .hd .meta{text-align:right;font-size:10.5px;color:var(--grey);line-height:1.7;}
+  .hd .meta b{color:var(--ink);}
+  /* section titles */
+  h2{font-size:12.5px;color:#fff;background:linear-gradient(90deg,var(--blue),var(--blue2));
+    padding:4px 9px;border-radius:3px;margin:11px 0 7px;letter-spacing:1px;display:flex;align-items:center;gap:6px;}
+  h2 .n{background:#fff;color:var(--blue);width:16px;height:16px;border-radius:50%;font-size:10px;
+    display:inline-flex;align-items:center;justify-content:center;font-weight:800;}
+  /* insight box */
+  .insight{background:var(--bg);border-left:4px solid var(--accent);padding:8px 11px;font-size:11.3px;line-height:1.65;border-radius:0 4px 4px 0;}
+  .insight b{color:var(--accent);}
+  /* two col */
+  .row{display:flex;gap:10px;}
+  .row>*{flex:1;}
+  /* cards */
+  .cards{display:flex;gap:8px;}
+  .card{flex:1;border:1px solid var(--line);border-radius:5px;padding:8px 9px;background:#fbfdff;}
+  .card .t{font-size:11px;font-weight:800;color:var(--blue);display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+  .card .t .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);}
+  .card p{font-size:10.2px;color:var(--grey);line-height:1.55;}
+  .card p b{color:var(--ink);}
+  /* dynamics chips */
+  ul.dyn{list-style:none;font-size:10.6px;line-height:1.5;}
+  ul.dyn li{padding:4px 0 4px 16px;position:relative;border-bottom:1px dashed var(--line);}
+  ul.dyn li:last-child{border-bottom:none;}
+  ul.dyn li::before{content:"▶";color:var(--blue2);position:absolute;left:0;font-size:8px;top:6px;}
+  ul.dyn .date{color:var(--accent);font-weight:700;}
+  /* metrics */
+  .metrics{display:flex;gap:8px;margin:2px 0;}
+  .metric{flex:1;text-align:center;border:1px solid var(--line);border-radius:5px;padding:6px 3px;background:linear-gradient(180deg,#fff,#eef6fd);}
+  .metric .v{font-size:17px;font-weight:800;color:var(--blue);}
+  .metric .v small{font-size:11px;}
+  .metric .l{font-size:9px;color:var(--grey);margin-top:2px;line-height:1.3;}
+  /* mapping table */
+  table{width:100%;border-collapse:collapse;font-size:10.3px;}
+  th,td{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top;}
+  th{background:var(--blue);color:#fff;font-weight:700;font-size:10.3px;}
+  td .k{font-weight:800;color:var(--blue2);}
+  /* ask / recommendation */
+  .ask{margin-top:auto;background:linear-gradient(90deg,#0b3d91,#1474c4);color:#fff;border-radius:6px;padding:9px 12px;}
+  .ask .t{font-size:11px;letter-spacing:2px;opacity:.85;font-weight:700;}
+  .ask .body{font-size:11.6px;line-height:1.6;margin-top:3px;}
+  .ask .body b{color:#ffd75e;}
+  .foot{display:flex;justify-content:space-between;font-size:8.6px;color:var(--grey);margin-top:6px;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brandbar">
+    <span class="wm">PHILIPS</span>
+    <span class="tl">Better care for more people</span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div>
+      <div class="eyebrow">ONE-PAGE DECISION BRIEF · 决策简报</div>
+      <h1>共建 AI 驱动的省域智慧心脏中心</h1>
+      <div class="sub">以"未来导管室"为技术引擎，落地白明院长"临床AI+科研AI+随访AI"三引擎战略</div>
+    </div>
+    <div class="meta">
+      呈：<b>白明 院长</b>（兰大一院院长·省政协委员）<br>
+      报：飞利浦中国 · Central MKT<br>
+      日期：2026-08-21 · 密级：商密
+    </div>
+  </div>
+
+  <!-- 1 洞察 -->
+  <h2><span class="n">1</span>核心洞察 · 为什么是现在</h2>
+  <div class="insight">
+    您在 <b>2026年1月省政协</b>提出"建设人工智能驱动的省域智慧医共体"，已在兰大一院跑通"临床AI+科研AI+随访AI"三引擎与"数字人"辅助随访——试点成效显著。飞利浦"未来导管室"正是把这套<b>省域战略沉淀为可复制的物理载体</b>：以心血管专病为突破口，用一间旗舰导管中心串起"精密早筛→尖端微创→旅程随访"，同时回应甘肃<b>心血管负担重、区域供给极不均衡（各省 CABG 最高/最低相差 55 倍）</b>的结构性痛点。
+  </div>
+
+  <!-- 2 动态 + 试点数据 -->
+  <h2><span class="n">2</span>您的近期动态 · 我们据此对齐（联网核实）</h2>
+  <div class="row">
+    <div>
+      <ul class="dyn">
+        <li><span class="date">2026·01</span> 省政协建言：临床/科研/随访三大 AI 引擎 + 数字人随访网络</li>
+        <li><span class="date">2026·05</span> 心内科应用国产血管介入手术机器人，<b>国内首批、甘青宁新首例</b></li>
+        <li><span class="date">2026·07</span> 牵头平凉多家机构共建协作医院，医共体持续扩容</li>
+        <li><span class="date">2026·07</span> 甘肃省医学会九届二次大会斩获多项荣誉，学科话语权强化</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;color:var(--grey);margin-bottom:4px;">▍您公布的医共体 AI 试点成效（我们方案对标提升）</div>
+      <div class="metrics">
+        <div class="metric"><div class="v">+30<small>%</small></div><div class="l">基层留治率</div></div>
+        <div class="metric"><div class="v">+20<small>%</small></div><div class="l">复杂病诊断准确率</div></div>
+        <div class="metric"><div class="v">-15<small>%</small></div><div class="l">跨区转诊率</div></div>
+        <div class="metric"><div class="v">+10<small>%</small></div><div class="l">精准转诊率</div></div>
+      </div>
+      <div style="font-size:9px;color:var(--grey);margin-top:4px;line-height:1.4;">"能留得住、也转得准"——未来导管室的多模态早筛与旅程随访可进一步放大该双向优化。</div>
+    </div>
+  </div>
+
+  <!-- 3 方案三力 -->
+  <h2><span class="n">3</span>解决方案 · 三力闭环，直击术者与患者双视角</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="t"><span class="dot"></span>核心力 · 尖端微创</div>
+      <p><b>超低辐射/超低造影剂</b>，融合 EP&超声&CT&MR 多模态导航；承接老龄化复杂介入增量，降低靶血管失败率与造影剂用量。<b>衔接国产介入机器人首例优势。</b></p>
+    </div>
+    <div class="card">
+      <div class="t"><span class="dot"></span>转化力 · AI 早筛引流</div>
+      <p><b>AI 超声 / 能谱 CT / AI 磁共振</b>做多模态风险分层，把高净值退休人群与中高危患者精准引流入院——对应您的"科研AI+临床AI"。</p>
+    </div>
+    <div class="card">
+      <div class="t"><span class="dot"></span>复购力 · 旅程随访</div>
+      <p><b>数字人 + 家庭遥测/上门</b>的混合式康复旅程与目标管理，承接长期高依赖人群——直接落地您的"随访AI+数字人"网络。</p>
+    </div>
+  </div>
+
+  <!-- 4 战略映射 -->
+  <h2><span class="n">4</span>与您三大主张的一一映射</h2>
+  <table>
+    <tr><th style="width:30%">白明院长主张</th><th style="width:40%">未来导管室对应能力</th><th style="width:30%">可复制资产</th></tr>
+    <tr><td><span class="k">随访AI + 数字人</span> 联合随访网络</td><td>多模态趋势平台 + 数字人随访 + 家庭遥测，可量化旅程目标</td><td>省域慢病随访 SOP + 医保效率证据</td></tr>
+    <tr><td><span class="k">AI 赋能的绿色智慧医院</span></td><td>超低辐射/造影剂（绿色）+ 全景采录数字孪生运营平台（能感知·会分析·可决策）</td><td>绿色智慧手术部标杆</td></tr>
+    <tr><td><span class="k">临床AI+科研AI+数字人</span> 一体化</td><td>智慧质控闭环 + 科教赋能引擎，手术数据转科研/教学资产</td><td>全国可复制价值营销矩阵</td></tr>
+  </table>
+
+  <!-- 5 落地路径 -->
+  <h2><span class="n">5</span>落地路径 · 对标世界顶级、建甘肃旗舰示范</h2>
+  <div class="row" style="font-size:10.3px;line-height:1.5;">
+    <div class="card" style="background:#fbfdff;"><b style="color:var(--blue)">阶段一 · 旗舰立标</b><br>依托心内科既有优势，共建首间"未来导管室"示范单元（对标 Mayo / 千叶西 / 麻省总院），统一多模态影像与中央质控。</div>
+    <div class="card" style="background:#fbfdff;"><b style="color:var(--blue)">阶段二 · 医共体外延</b><br>把示范经验注入平凉等协作医院，AI 早筛 + 数字人随访下沉基层，放大"留得住·转得准"。</div>
+    <div class="card" style="background:#fbfdff;"><b style="color:var(--blue)">阶段三 · 全国可复制</b><br>沉淀战略资产健康评价体系 → 跨部门整合 → 建立全国可复制的价值营销矩阵，输出"甘肃模式"。</div>
+  </div>
+
+  <!-- ASK -->
+  <div class="ask">
+    <div class="t">建议决策事项 · THE ASK</div>
+    <div class="body">
+      恳请院长原则同意<b>启动"未来智慧心脏中心"联合共创工作坊</b>（1 场，2 周内），锁定<b>首间旗舰导管室示范单元</b>的范围、KPI 与时间表；由飞利浦提供全球标杆方案与投资回报测算，作为医院<b>省域智慧医共体</b>的心血管旗舰落点。
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>信息来源：兰大一院官网履历 · 兰州大学统战部(2026-01-28) · 中国日报(2026-05) · 公开报道，经联网核实</span>
+    <span>飞利浦中国 Central MKT · 张宇</span>
+  </div>
+
+</div>
+</body>
+</html>

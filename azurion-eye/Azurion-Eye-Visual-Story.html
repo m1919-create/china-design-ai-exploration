@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Azurion Eye — Backed Up, Never Watched</title>
+  <style>
+    :root {
+      --blue:#0b5ed7; --dark-blue:#00126e; --light-blue:#bdf0ff;
+      --aqua:#02abb1; --dark-aqua:#00666f; --coral:#d43f44;
+      --ink:#172033; --muted:#667085; --line:#d9e0ea; --paper:#fff;
+      --wash:#f5f7fa;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; background:#edf1f6; color:var(--ink);
+      font-family:"Neue Frutiger World","Helvetica Neue",Arial,"PingFang SC",sans-serif;
+    }
+    main {
+      width:min(1240px,calc(100% - 36px)); margin:26px auto 48px;
+      background:var(--paper); box-shadow:0 18px 60px rgba(0,18,110,.12);
+    }
+    header { padding:34px 42px 28px; border-bottom:4px solid var(--blue); }
+    .eyebrow { color:var(--blue); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { margin:8px 0 4px; color:var(--dark-blue); font-size:36px; line-height:1.08; letter-spacing:-.03em; }
+    .subtitle { color:var(--muted); font-size:17px; }
+    .meta { display:flex; flex-wrap:wrap; gap:24px; margin-top:22px; padding:13px 16px; background:var(--wash); border-left:4px solid var(--blue); }
+    .meta span { font-size:12px; }
+    .meta strong { color:var(--blue); margin-right:6px; text-transform:uppercase; font-size:10px; letter-spacing:.06em; }
+    .hook {
+      padding:30px 42px; color:white; text-align:center; font-size:27px; font-style:italic; font-weight:600;
+      background:linear-gradient(135deg,var(--dark-blue),var(--blue));
+    }
+    .message { margin:28px 42px; padding:4px 0 4px 20px; border-left:5px solid var(--blue); font-size:16px; line-height:1.75; }
+    .scene { padding:12px 42px 22px; }
+    .scene-head { display:flex; align-items:center; gap:12px; margin:8px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--coral); }
+    .scene.solution .scene-head { border-color:var(--dark-aqua); }
+    .scene-no { display:grid; place-items:center; width:32px; height:32px; border-radius:50%; background:var(--coral); color:#fff; font-weight:700; }
+    .solution .scene-no { background:var(--dark-aqua); }
+    h2 { margin:0; font-size:20px; color:var(--dark-blue); }
+    .duration { margin-left:auto; color:var(--muted); font-size:12px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .grid.two { grid-template-columns:repeat(2,1fr); }
+    article { border:1px solid var(--line); background:#fff; break-inside:avoid; }
+    figure { margin:0; aspect-ratio:1/1; background:white; overflow:hidden; border-bottom:1px solid var(--line); }
+    figure img { width:100%; height:100%; object-fit:cover; display:block; }
+    .panel-copy { padding:15px 16px 17px; }
+    .label { color:var(--coral); font-weight:800; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+    .solution .label { color:var(--dark-aqua); }
+    .camera { color:var(--aqua); font-size:11px; font-weight:700; margin:6px 0; }
+    .action { font-size:13px; line-height:1.6; min-height:62px; }
+    .vo { margin-top:10px; padding:10px 12px; background:#eaf8ff; border-left:3px solid var(--blue); color:#354052; font-size:12px; line-height:1.55; font-style:italic; }
+    .turn { margin:8px 0 18px; padding:22px 42px; background:var(--dark-aqua); color:white; text-align:center; }
+    .turn small { display:block; font-size:10px; letter-spacing:.16em; text-transform:uppercase; opacity:.75; margin-bottom:7px; }
+    .turn strong { font-size:22px; font-style:italic; }
+    .closing { margin:8px 42px 30px; padding:28px; background:var(--dark-blue); color:#fff; text-align:center; }
+    .closing p { margin:0 0 8px; font-size:15px; opacity:.85; }
+    .closing strong { font-size:28px; letter-spacing:-.02em; }
+    .notes { margin:0 42px 28px; padding:22px; border:1px solid var(--line); }
+    .notes h3 { margin:0 0 16px; color:var(--dark-blue); text-transform:uppercase; font-size:13px; letter-spacing:.08em; }
+    .note-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px 28px; }
+    .note-grid b { display:block; color:var(--blue); font-size:12px; margin-bottom:4px; }
+    .note-grid p { margin:0; color:#4b5565; font-size:12px; line-height:1.6; }
+    .evidence { margin-top:20px; padding-top:18px; border-top:1px solid var(--line); }
+    .quote { margin:8px 0; padding-left:12px; border-left:3px solid var(--light-blue); color:#4b5565; font-size:11px; }
+    .quote span { display:inline-block; margin-right:7px; padding:2px 7px; background:#dff9fa; color:var(--dark-aqua); font-weight:700; }
+    footer { display:flex; justify-content:space-between; padding:18px 42px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+    @media (max-width:850px) { .grid,.grid.two,.note-grid { grid-template-columns:1fr; } .action { min-height:0; } }
+    @media print {
+      @page { size:A4 landscape; margin:10mm; }
+      body { background:white; } main { width:100%; margin:0; box-shadow:none; }
+      * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+      article,.scene-head { break-inside:avoid; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Clinical AI Visual Story</div>
+    <h1>Azurion Eye — Backed Up, Never Watched</h1>
+    <div class="subtitle">判断权始终在人，AI 让关键证据、学习与监督在正确的时刻出现</div>
+    <div class="meta">
+      <span><strong>Duration</strong>60 秒</span>
+      <span><strong>Panels</strong>5 个关键画面</span>
+      <span><strong>Format</strong>1:1 分镜格 / 响应式故事板</span>
+      <span><strong>Style</strong>临床铅笔草图</span>
+    </div>
+  </header>
+
+  <section class="hook">“如果临床 AI 增强判断，却从不站到医生前面呢？”</section>
+  <section class="message">
+    Azurion Eye 不替代临床判断。它把容易被淹没的信息带到眼前，把建议、置信度和依据放在一起，并允许医生自然地接受、调整或覆写。对于学习者，它把解释、模拟和恰到好处的监督嵌入工作流。最终留下的不是监控记录，而是一条可理解、可复盘、可成长的决策轨迹。
+  </section>
+
+  <section class="scene problem">
+    <div class="scene-head"><div class="scene-no">1</div><h2>复杂现场，关键细节不能被埋没</h2><div class="duration">0–28 秒</div></div>
+    <div class="grid">
+      <article>
+        <figure><img src="assets/panel-1-deep-in-case.png" alt="陈医生在导管室处理复杂分叉病变"></figure>
+        <div class="panel-copy">
+          <div class="label">Panel 1A — Deep in the case</div>
+          <div class="camera">WS — 导管室建立镜头</div>
+          <div class="action">陈医生正在处理复杂分叉病变。团队专注、节奏稳定；技术在场，却不是主角。</div>
+          <div class="vo">“在复杂介入中，最重要的细节，可能早在几个月前就被记录。”</div>
+        </div>
+      </article>
+      <article>
+        <figure><img src="assets/panel-2-allergy-surfaced.png" alt="系统在术中主动呈现历史过敏风险"></figure>
+        <div class="panel-copy">
+          <div class="label">Panel 1B — Surfaced, not searched</div>
+          <div class="camera">OTS — 时间线风险提示</div>
+          <div class="action">一条历史对比剂过敏记录出现在实时影像旁。信息有来源、有时间戳，也没有遮挡解剖视图。</div>
+          <div class="vo">“它在被埋没之前出现。陈医生无需离开当前任务去寻找它。”</div>
+        </div>
+      </article>
+      <article>
+        <figure><img src="assets/panel-3-judgment-adapts.png" alt="医生接受支架尺寸建议并覆写机架角度"></figure>
+        <div class="panel-copy">
+          <div class="label">Panel 1C — Judgment stays final</div>
+          <div class="camera">CU — 建议、依据与一键覆写</div>
+          <div class="action">支架尺寸建议被接受；C 臂角度被医生覆写。系统不争辩，立即增强医生所选择角度下的视野。</div>
+          <div class="vo">“尺寸合理，角度不对。最终决定始终属于医生。”</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="turn"><small>Turning point</small><strong>当 AI 被覆写时，它会辩护自己，还是继续支持医生？</strong></section>
+
+  <section class="scene solution">
+    <div class="scene-head"><div class="scene-no">2</div><h2>学习、监督与可追溯性融入同一条路径</h2><div class="duration">28–60 秒</div></div>
+    <div class="grid two">
+      <article>
+        <figure><img src="assets/panel-4-training-supervision.png" alt="李医生模拟替代路径并获得远程导师签核"></figure>
+        <div class="panel-copy">
+          <div class="label">Panel 2A — Practice before commitment</div>
+          <div class="camera">MS + INSET — 模拟与远程签核</div>
+          <div class="action">李医生在 Training Mode 中查看理由与参考案例，模拟替代路径并提前看到风险。关键步骤触发导师签核，他在办公室用平板批准。</div>
+          <div class="vo">“她可以在承诺之前探索风险；需要监督时，支持会出现，却不会打断任何人。”</div>
+        </div>
+      </article>
+      <article>
+        <figure><img src="assets/panel-5-backed-up.png" alt="两位医生的建议、选择和理由形成可追溯时间线"></figure>
+        <div class="panel-copy">
+          <div class="label">Panel 2B — A record of reasoning</div>
+          <div class="camera">WS — 双病例决策时间线</div>
+          <div class="action">AI 建议、医生选择、覆写理由和导师批准被清楚地区分。李医生的关键学习节点自动进入训练记录。</div>
+          <div class="vo">“留下的不是监控，而是一份关于判断、学习与信任的记录。”</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="closing"><p>最终画面</p><strong>No one felt watched. Everyone felt backed up.</strong></section>
+
+  <section class="notes">
+    <h3>Production Notes</h3>
+    <div class="note-grid">
+      <div><b>视觉基调</b><p>纯白背景、黑色铅笔线；风险与模拟仅使用少量珊瑚红强调。保持临床冷静，不营造警报式焦虑。</p></div>
+      <div><b>交互原则</b><p>所有 AI 输出都表现为“建议”，同时呈现置信度与依据；接受、覆写和导师签核必须具有相同的视觉尊重。</p></div>
+      <div><b>必须表达</b><p>信息主动呈现、医生一键覆写、系统即时适应、替代路径模拟、远程监督、可追溯学习记录。</p></div>
+      <div><b>避免</b><p>自主治疗暗示、监控摄像头、惩罚性告警、不可解释的 AI 决策，以及任何弱化医生最终责任的构图。</p></div>
+    </div>
+    <div class="evidence">
+      <h3>Evidence Appendix</h3>
+      <div class="quote"><span>Concept brief</span>“A contrast allergy flagged months ago that almost got buried.”</div>
+      <div class="quote"><span>Concept brief</span>“Clearly marked as a suggestion, backed by a confidence score and the evidence behind it.”</div>
+      <div class="quote"><span>Concept brief</span>“One tap overrides it, and the system instantly adapts.”</div>
+      <div class="quote"><span>Concept brief</span>“She simulates an alternate path and sees the risk before committing.”</div>
+      <div class="quote"><span>Concept brief</span>“No one felt watched. Everyone felt backed up.”</div>
+    </div>
+  </section>
+
+  <footer><span>Concept storyboard · Generated with Agent Atelier storyboard craft + native ImageGen</span><span>Clinical and regulatory validation required before external use</span></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI exploration | progress & demos</title>
+  <style>
+    :root{--blue:#0B5ED7;--deep:#00126E;--ink:#00126E;--muted:#374151;--line:#E9ECEF;--ice:#BDF0FF;--mint:#ADFFB5;--lilac:#F1DEFC;--green:#008800;--purple:#A80DF2;--paper:#F8F9FA}
+    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--line);font-family:"Neue Frutiger World","Arial",sans-serif;color:var(--ink)}
+    body{display:grid;place-items:center}.slide{--stage-scale:1;position:fixed;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;background:var(--paper);transform:translate(-50%,-50%) scale(var(--stage-scale));transform-origin:center center;box-shadow:0 8px 24px rgba(0,18,110,.12)}
+    .topline{position:absolute;top:0;left:0;width:100%;height:12px;background:var(--blue)}
+    header{position:absolute;top:12px;left:0;right:0;height:220px;display:grid;grid-template-columns:minmax(0,1fr) 460px 176px;gap:36px;align-items:flex-start;padding:22px 108px 24px;background:var(--deep)}header>div{min-width:0}
+    .eyebrow{margin:0 0 7px;font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ice)}
+    .manifesto{margin:0 0 9px;font-size:24px;font-weight:700;line-height:1.16;letter-spacing:-.2px;color:#fff}.manifesto span{color:var(--ice)}
+    h1{margin:0;font-size:52px;line-height:1.03;letter-spacing:-1.3px;color:#fff}
+    .subtitle{margin:10px 0 0;max-width:1320px;font-size:19px;line-height:1.32;color:var(--ice)}
+    .manifesto-visual{width:460px;height:184px;align-self:center;margin:0;background:transparent;overflow:visible}.dt-caption{height:32px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 4px;background:transparent;color:#fff}.dt-caption strong{font-size:11px;letter-spacing:.06em;text-transform:uppercase}.dt-caption span{font-size:8.5px;font-weight:700;white-space:nowrap;color:rgba(255,255,255,.76)}.dt-steps{height:148px;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;align-items:center;list-style:none;background:transparent;overflow:visible}.dt-step{position:relative;z-index:1;display:flex;aspect-ratio:1;flex-direction:column;align-items:center;justify-content:center;min-width:0;padding:5px 3px;border:2px solid var(--ice);border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(11,94,215,.24);color:#fff;text-align:center}.dt-step:not(:last-child)::after{content:"⟳";position:absolute;z-index:2;top:50%;left:100%;width:18px;transform:translateY(-52%);font-family:Arial,sans-serif;font-size:20px;font-weight:400;line-height:1;color:var(--ice);text-align:center}.dt-step:not(:last-child)::before{content:none}.dt-step span{display:block;font-size:11px;font-weight:800;line-height:1;letter-spacing:.04em;color:#fff}.dt-step strong{display:block;max-width:50px;margin-top:4px;font-size:6.8px;font-weight:800;line-height:1.03;text-transform:uppercase;color:#fff}.header-actions{width:176px;display:flex;flex-direction:column;align-items:stretch;gap:22px}.logo{width:176px;height:auto;margin-top:3px}.theme-toggle{display:grid;grid-template-columns:1fr 1fr;height:34px;border:1px solid rgba(189,240,255,.62)}.theme-toggle a{display:grid;place-items:center;color:var(--ice);font-size:11px;font-weight:800;text-decoration:none}.theme-toggle a[aria-current="page"]{background:#fff;color:var(--deep)}.theme-toggle a:focus-visible{outline:3px solid var(--ice);outline-offset:2px}.rule{position:absolute;top:232px;left:0;width:100%;height:8px;background:var(--blue)}
+    .focus-area{position:absolute;top:270px;left:108px;right:108px;display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+    .pillar{height:516px;padding:0 30px 22px;border:1px solid var(--line);border-top:10px solid var(--accent);background:var(--tint);display:flex;flex-direction:column}
+    .pillar-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 0 12px;border-bottom:1px solid rgba(16,37,68,.14)}
+    .num{font-size:18px;font-weight:700;letter-spacing:.09em;color:var(--accent)}
+    h2{margin:9px 0 0;font-size:30px;line-height:1.12;letter-spacing:-.6px;color:var(--deep)}
+    .progress-label,.demo-label{margin:13px 0 5px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .progress{margin:0;font-size:17px;line-height:1.4;color:var(--ink)}
+    .demo{flex:0 0 168px;height:168px;margin-top:auto;padding:8px 10px 10px;border-left:6px solid var(--accent);background:var(--paper)}
+    .demo>.demo-label{margin:0 0 6px;font-size:14px;line-height:1;color:var(--accent)}.demo p{margin:0;font-size:18px;font-weight:700;line-height:1.35;color:var(--deep)}
+    .demo-links{display:flex;align-items:center;gap:9px;margin-top:7px;white-space:nowrap}.demo-links span{font-size:14px;color:var(--muted)}
+    .demo a{display:inline-block;font-size:14px;font-weight:700;line-height:1.25;color:var(--accent);text-decoration:none}.demo a:focus-visible{outline:3px solid var(--deep);outline-offset:2px}
+    .demo-case{margin-top:7px;padding-top:6px;border-top:1px solid var(--line)}.demo-case small{display:block;margin-bottom:2px;font-size:12px;font-weight:800;letter-spacing:.05em;color:var(--muted)}
+    .value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px}.value-item{min-width:0;padding:5px 7px;border-left:3px solid var(--accent);background:var(--paper)}.value-item strong{display:block;font-size:9.5px;line-height:1.12;text-transform:uppercase;color:var(--muted)}.value-item span{display:block;margin-top:2px;font-size:12.5px;font-weight:800;line-height:1.15;color:var(--deep)}
+    .demo-grid{display:grid;height:128px;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}.demo-grid.triple{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.demo-mini{position:relative;min-width:0;padding:6px 9px 7px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#fff;transform:translateY(0);transition:transform .18s ease,border-color .18s ease}.demo-mini:hover,.demo-mini:focus-within{z-index:1;transform:translateY(-3px);border-color:var(--accent)}.demo-mini+.demo-mini{padding-left:9px;border-left:1px solid var(--line)}.demo-mini small{display:block;min-height:27px;margin-bottom:4px;font-size:10.5px;font-weight:800;line-height:13.5px;letter-spacing:.035em;text-transform:uppercase;color:var(--accent);transition:letter-spacing .18s ease}.demo-mini:hover small,.demo-mini:focus-within small{letter-spacing:.045em}.demo-mini p{font-size:15px;line-height:18px}.demo-mini .flow,.demo-mini .project-list{margin-top:4px!important;font-family:"Neue Frutiger World","Arial",sans-serif;font-size:12.5px!important;font-weight:400!important;line-height:17px!important;color:var(--muted)!important;transition:color .18s ease}.demo-mini:hover .flow,.demo-mini:focus-within .flow,.demo-mini:hover .project-list,.demo-mini:focus-within .project-list{color:var(--deep)!important}.demo-mini .case-flow{display:flex;align-items:center;gap:7px;margin-top:4px;padding-top:4px;border-top:1px solid var(--line);font-size:9.5px;font-weight:800;line-height:14px;color:var(--muted);white-space:nowrap}.demo-mini p>a{display:block;width:100%;padding:4px 7px;border:1px solid var(--accent);background:#fff;font-size:12.5px;line-height:16px;color:var(--deep);transition:transform .18s ease,background-color .18s ease,color .18s ease}.demo-mini p>a:hover{transform:translateX(2px);background:var(--accent);color:#fff}.demo-mini p>a.phase-action{padding:3px 7px}.phase-action .action-title{display:block;font-size:12.5px;font-weight:800;line-height:15px}.phase-action .action-meta{display:block;margin-top:1px;font-size:9px;font-weight:700;line-height:12px;color:var(--muted);transition:color .18s ease}.phase-action:hover .action-meta{color:#fff}.demo-mini .case-flow a{display:inline;padding:0;border:0;border-bottom:1px solid var(--accent);background:transparent;font-size:10.5px;line-height:14px;color:var(--deep)}.demo-mini .case-flow a:hover{background:transparent;color:var(--accent)}.track-name{display:block;width:100%;margin-top:1px!important;padding:4px 7px;border:1px solid var(--accent);background:#fff;font-size:12.5px!important;font-weight:400!important;line-height:16px!important;color:var(--deep)!important;letter-spacing:0;transition:transform .18s ease,background-color .18s ease,color .18s ease}.demo-mini:hover .track-name{transform:translateX(2px);background:var(--accent);color:#fff!important}
+    .demo-mini p>a,.track-name{font-family:"Neue Frutiger World","Arial",sans-serif;font-size:12.5px!important;font-weight:400!important;line-height:16px!important}
+    .foundation{position:absolute;top:808px;left:108px;right:108px;height:160px;display:grid;grid-template-columns:345px 1fr 520px;gap:28px;align-items:center;padding:16px 28px;border:1px solid var(--line);border-top:10px solid var(--purple);background:var(--lilac)}.foundation-title h2{margin-top:7px;font-size:28px;line-height:1.08;color:var(--deep)}.foundation-copy{align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:0 28px;border-left:1px solid var(--line);border-right:1px solid var(--line)}.foundation-kicker{margin:0 0 7px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}.foundation-copy p{margin:0;font-size:16px;line-height:1.42}.foundation-demo{padding:11px 16px;border-left:5px solid var(--purple);background:#fff}.foundation-demo .demo-label{margin:0 0 4px;color:var(--deep)}.foundation-demo>p{margin:0;font-size:16px;font-weight:700;line-height:1.3;color:var(--deep)}
+    .ecosystem{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:7px}.ecosystem-row{display:flex;align-items:center;gap:5px}.brand-chip{display:flex;align-items:center;gap:4px;height:25px;padding:3px 6px 3px 3px;background:#fff;border:1px solid var(--line);font-size:9px;font-weight:800;color:var(--deep);text-decoration:none;white-space:nowrap}.brand-chip img{width:17px;height:17px;object-fit:contain}.brand-chip:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
+    .pillar:first-child .progress-label{margin-top:12px}.pillar:first-child .progress{line-height:1.36}.pillar:first-child .demo{padding:8px 10px 10px}.pillar:first-child .demo-case{margin-top:5px;padding-top:4px}
+    .footer{position:absolute;left:108px;right:108px;bottom:46px;display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:center;padding-top:13px;border-top:2px solid var(--blue)}
+    .footer-kicker{font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+    .footer-text{font-size:20px;line-height:1.24;font-weight:700;color:var(--deep)} .footer-text span{color:var(--blue)}
+    .fine{position:absolute;right:108px;bottom:18px;font-size:12px;color:var(--muted)}
+    @media (prefers-reduced-motion:reduce){.demo-mini,.demo-mini small,.demo-mini .flow,.demo-mini p>a,.track-name{transition:none!important}.demo-mini:hover,.demo-mini:focus-within,.demo-mini p>a:hover,.demo-mini:hover .track-name{transform:none}}
+    .lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-stopped{overflow:hidden}.lenis.lenis-smooth iframe{pointer-events:none}
+    @media print{body{background:#fff}.slide{box-shadow:none;transform:none!important}}
+  </style>
+</head>
+<body>
+  <!-- Internal working view. Demo names describe explorations; value figures are estimates or targets to be validated. -->
+  <main class="slide">
+    <div class="topline"></div>
+    <header>
+      <div>
+        <p class="eyebrow">AI exploration · China Design</p>
+        <p class="manifesto">Design thinking isn’t dead. <span>AI just made it indispensable.</span></p>
+        <h1>Two engines. One shared foundation.</h1>
+        <p class="subtitle">China Design uses AI to accelerate innovation, customer co-creation and marketing asset management. A shared foundation turns exploration into scalable design capability.</p>
+      </div>
+      <figure class="manifesto-visual"><figcaption class="dt-caption"><strong>Design thinking × AI</strong><span>Human judgment × AI acceleration</span></figcaption><ol class="dt-steps" aria-label="Design thinking process"><li class="dt-step"><span>01</span><strong>Empathize</strong></li><li class="dt-step"><span>02</span><strong>Form insights</strong></li><li class="dt-step"><span>03</span><strong>How might we</strong></li><li class="dt-step"><span>04</span><strong>Generate ideas</strong></li><li class="dt-step"><span>05</span><strong>Prototype</strong></li><li class="dt-step"><span>06</span><strong>Experiment</strong></li></ol></figure>
+      <div class="header-actions">
+        <img class="logo" src="assets/Philips_logo_white_2025_RGB.png" alt="Philips">
+        <nav class="theme-toggle" aria-label="Display theme"><a href="AI_Exploration_One_Pager.html" aria-current="page">Light</a><a href="index.html">Dark</a></nav>
+      </div>
+    </header>
+    <div class="rule"></div>
+    <section class="focus-area" aria-label="AI exploration focus areas">
+      <article class="pillar" style="--accent:#0B5ED7;--tint:#FFFFFF">
+        <div class="pillar-head"><div><div class="num">01 · INNOVATION</div><h2>AI in innovation &<br>customer co-creation</h2></div></div>
+        <p class="progress-label">Progress</p>
+        <p class="progress">Combining global Design AI models with China business contexts, systems and local AI tools. We are building reusable agentic workflows and skills for innovation and customer co-creation.</p>
+        <p class="progress-label">Estimated value</p>
+        <div class="value-grid" aria-label="Estimated value for innovation and co-creation"><div class="value-item"><strong>Co-creation cycle</strong><span>3–4 weeks → 1 week</span></div><div class="value-item"><strong>Hospital engagement</strong><span>Cost impact · to validate</span></div><div class="value-item"><strong>Design to code</strong><span>8 hours → 2–3 hours</span></div></div>
+        <div class="demo"><p class="demo-label">Sub-track</p><div class="demo-grid triple"><div class="demo-mini"><small>01 · China innovation</small><p><a href="VPC_Pipeline_Case.html">VPC agent ↗</a></p><p class="flow"><a href="PM_Community_Case.html">PM community agent ↗</a></p></div><div class="demo-mini"><small>02 · Customer co-creation</small><p><a href="Customer_360_Cocreation_Case.html">Customer pitch agent ↗</a></p><p class="flow"><a href="Azurion_Eye_Case.html">Hospital design visualization ↗</a></p></div><div class="demo-mini"><small>03 · Product design to code</small><p class="track-name">Design-to-code workflow</p><p class="project-list">WeConnect · Regina 2.0<br>Voice UX · more</p></div></div></div>
+      </article>
+      <article class="pillar" style="--accent:#008800;--tint:#FFFFFF">
+        <div class="pillar-head"><div><div class="num">02 · MARKETING</div><h2>AI in marketing &<br>assets management</h2></div></div>
+        <p class="progress-label">Progress</p>
+        <p class="progress">Using the Microsoft ecosystem to connect fragmented marketing assets for governed creation, release and learning. We are also testing AI-enabled self-service and supplier efficiency.</p>
+        <p class="progress-label">Estimated value</p>
+        <div class="value-grid" aria-label="Estimated value for marketing asset management"><div class="value-item"><strong>Brand queries</strong><span>Save ~8 hours/week</span></div><div class="value-item"><strong>Adaptation cycle and cost</strong><span>Impact · to validate</span></div><div class="value-item"><strong>Asset quality and reuse</strong><span>Baseline to define</span></div></div>
+        <div class="demo"><p class="demo-label">Sub-track</p><div class="demo-grid triple"><div class="demo-mini"><small>01 · Brand Buddy</small><p><a href="Brand_Buddy_Demo.html">Intelligent brand Q&amp;A ↗</a></p><p class="flow">trusted assets · templates · guidance</p></div><div class="demo-mini"><small>02 · Agentic governance</small><p><a href="Asset_Lifecycle_Demo.html">Assets lifecycle management ↗</a></p><p class="flow">request → create → approve → release</p></div><div class="demo-mini"><small>03 · Self-service creation</small><p class="track-name">Copilot design self-service</p><p class="project-list">PPT skills · Word skills · Copilot Create · local templates</p></div></div></div>
+      </article>
+    </section>
+    <section class="foundation" aria-label="China Design AI community foundation">
+      <div class="foundation-title"><div class="num" style="color:#00126E">03 · CAPABILITY FOUNDATION</div><h2>China Design AI<br>community</h2></div>
+      <div class="foundation-copy"><p class="foundation-kicker">Shared capability and governance</p><p>China Design AI Community connects designers across business units and disciplines. Shared tools, skills and MCPs turn local practice into reusable capability. Legal, RA, IP, Brand, IT and Security help govern AI use across teams and suppliers.</p></div>
+      <div class="foundation-demo"><p class="demo-label">Enablement loop</p><p>tools &amp; skills → practice → global sharing</p><div class="ecosystem" aria-label="AI and design tool ecosystem"><div class="ecosystem-row" aria-label="Design enablement tools"><span class="brand-chip"><img src="assets/agent-atelier-logo.png" alt="Agent Atelier logo">Agent Atelier</span><span class="brand-chip"><img src="assets/figma-logo.png" alt="Figma logo">Figma</span><span class="brand-chip"><img src="assets/miro-logo.png" alt="Miro logo">Miro</span><a class="brand-chip" href="https://vizcom.com/" target="_blank" rel="noopener"><img src="assets/vizcom-logo.svg" alt="Vizcom logo">Vizcom</a></div><div class="ecosystem-row" aria-label="AI and development tools"><span class="brand-chip"><img src="assets/bytedance-logo.png" alt="ByteDance logo">字节跳动</span><span class="brand-chip"><img src="assets/gemini-logo.png" alt="Gemini logo">Gemini</span><span class="brand-chip"><img src="assets/codex-logo.png" alt="Codex logo">Codex</span><span class="brand-chip"><img src="assets/vscode-logo.png" alt="Visual Studio Code logo">VS Code</span><span class="brand-chip"><img src="assets/microsoft-365-copilot-logo.png" alt="Microsoft 365 Copilot logo">Copilot 365</span></div></div></div>
+    </section>
+    <footer class="footer"><div class="footer-kicker">Design direction</div><div class="footer-text">Scale human-centered design by combining <span>expert judgment with reusable AI workflows</span>, shared skills, governed assets and a connected community.</div></footer>
+    <div class="fine">Internal working view · AI capability development</div>
+  </main>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script>
+    document.documentElement.style.setProperty('--ready','1');window.__ready=true;
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function updateStageScale(){document.querySelector('.slide').style.setProperty('--stage-scale',String(Math.min(innerWidth/1920,innerHeight/1080)))}
+    function initMotion(){
+      if(reducedMotion||!window.gsap)return;
+      gsap.timeline({defaults:{ease:'power3.out'}})
+        .fromTo('.topline',{scaleX:0,transformOrigin:'left center'},{scaleX:1,duration:.5},0)
+        .fromTo('header>div:first-child>*',{opacity:0,y:-12},{opacity:1,y:0,duration:.42,stagger:.055},.08)
+        .fromTo('.dt-caption,.dt-step',{opacity:0,scale:.92},{opacity:1,scale:1,duration:.4,stagger:.035,ease:'back.out(1.35)'},.18)
+        .fromTo('.header-actions',{opacity:0,x:16},{opacity:1,x:0,duration:.42},.22)
+        .fromTo('.pillar',{opacity:0,y:24},{opacity:1,y:0,duration:.48,stagger:.1},.34)
+        .fromTo('.value-item,.demo-mini',{opacity:0,y:12},{opacity:1,y:0,duration:.36,stagger:.025},.52)
+        .fromTo('.foundation',{opacity:0,y:18},{opacity:1,y:0,duration:.44},.62)
+        .fromTo('.footer,.fine',{opacity:0,y:10},{opacity:1,y:0,duration:.36,stagger:.05},.74);
+      gsap.to('.dt-step',{boxShadow:'0 0 0 7px rgba(11,94,215,.16)',duration:1.7,stagger:{each:.18,repeat:-1,yoyo:true},ease:'sine.inOut'});
+      document.querySelectorAll('.theme-toggle a').forEach(link=>link.addEventListener('click',event=>{
+        if(link.hasAttribute('aria-current')){event.preventDefault();return}
+        event.preventDefault();const href=link.href;
+        gsap.to('.slide',{opacity:0,duration:.24,ease:'power2.in',onComplete:()=>location.href=href});
+      }));
+      if(window.Lenis){const lenis=new Lenis({autoRaf:false,smoothWheel:true,lerp:.075,wheelMultiplier:.85,syncTouch:false,anchors:true});gsap.ticker.add(time=>lenis.raf(time*1000));gsap.ticker.lagSmoothing(0);window.__lenis=lenis}
+    }
+    window.addEventListener('resize',updateStageScale);updateStageScale();initMotion();
+  </script>
+</body>
+</html>

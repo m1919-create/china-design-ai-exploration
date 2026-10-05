@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>China Design AI exploration · interactive network</title>
+  <style>
+    :root{--blue:#0B5ED7;--bright:#57B6FF;--deep:#061321;--panel:#0A1A2B;--panel-2:#0D2236;--ice:#BDF0FF;--green:#25C489;--mint:#ADFFB5;--purple:#B56AF5;--lilac:#F1DEFC;--gold:#FCA708;--white:#FFF;--muted:#93A4B7;--line:rgba(127,188,231,.18);--glass:rgba(255,255,255,.055)}
+    *{box-sizing:border-box}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    html,body{margin:0;min-width:320px;width:100%;height:100%;overflow:hidden;background:#020A12;color:var(--white);font-family:"Neue Frutiger World",Arial,sans-serif}body{display:grid;place-items:center}button,a{font:inherit}button{border-radius:0}
+    .app{--stage-scale:1;position:fixed;left:50%;top:50%;width:1920px;height:1080px;display:grid;grid-template-rows:88px 92px minmax(0,1fr);background:var(--deep);transform:translate(-50%,-50%) scale(var(--stage-scale));transform-origin:center center;box-shadow:0 20px 60px rgba(0,0,0,.26)}
+    .topbar{position:relative;z-index:5;display:grid;grid-template-columns:auto minmax(0,1fr) 240px;align-items:center;gap:16px;padding:14px 30px;border-bottom:1px solid var(--line);background:#071524}
+    .brand-token{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--bright);color:#041321;font-size:19px;font-weight:900;letter-spacing:-.04em}.title-block{min-width:0}.eyebrow{margin:0 0 3px;font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--bright)}h1{margin:0;font-size:25px;line-height:1.04;letter-spacing:-.55px}.title-block p:last-child{margin:5px 0 0;font-size:11px;color:var(--muted)}.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}.logo{width:138px;height:auto}.theme-toggle{display:grid;grid-template-columns:repeat(2,42px);height:30px;border:1px solid rgba(87,182,255,.38);border-radius:7px;overflow:hidden}.theme-toggle a{display:grid;place-items:center;color:var(--muted);font-size:9px;font-weight:800;text-decoration:none}.theme-toggle a[aria-current="page"]{background:var(--bright);color:#061321}.theme-toggle a:focus-visible{outline:2px solid var(--ice);outline-offset:-2px}
+    .network-bar{position:relative;z-index:5;display:grid;grid-template-columns:minmax(330px,1.1fr) auto minmax(560px,1.8fr);align-items:center;gap:24px;padding:12px 30px;border-bottom:1px solid var(--line);background:#071524}.network-summary{min-width:0}.network-summary strong{display:block;font-size:11px;line-height:1.35;color:#DDE8F2}.network-summary span{display:block;margin-top:3px;font-size:10px;line-height:1.35;color:var(--muted)}
+    .view-switch{display:flex;padding:3px;border:1px solid rgba(87,182,255,.22);border-radius:9px;background:rgba(7,30,49,.7)}.view-button{height:31px;padding:0 13px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:10px;font-weight:800;cursor:pointer}.view-button[aria-pressed="true"]{background:var(--bright);color:#061321}.view-button:focus-visible,.control:focus-visible,.legend-item:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+    .legend{display:flex;justify-content:flex-end;align-items:center;gap:5px;min-width:0}.legend-item{display:flex;align-items:center;gap:6px;padding:6px 7px;border:1px solid transparent;background:transparent;color:#A9B8C8;font-size:9px;white-space:nowrap;cursor:pointer;transition:opacity .16s ease,background-color .16s ease,border-color .16s ease}.legend-item:hover{border-color:var(--line);background:rgba(255,255,255,.035)}.legend-item[aria-pressed="false"]{opacity:.3}.sample{width:25px;height:8px;position:relative}.sample::before{content:"";position:absolute;left:0;right:0;top:3px;border-top:1.5px solid var(--ice)}.sample.formal::before{border-top-width:2.5px}.sample.functional::before{border-top-style:dashed}.sample.inferred::before{border-top-style:dotted;border-color:var(--gold)}.sample.indirect::before{border-top:1px solid var(--lilac);box-shadow:0 3px 0 rgba(241,222,252,.28)}
+    .workspace{position:relative;min-height:0}.map-shell{position:relative;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden;background:var(--deep)}#network{display:block;width:100%;height:100%;touch-action:none;cursor:grab;outline:none;background:var(--deep);-webkit-tap-highlight-color:transparent}#network.is-panning{cursor:grabbing}#network:focus,#network:focus-visible,#network g:focus,#network g:focus-visible{outline:none}
+    .map-controls{position:absolute;z-index:5;top:16px;right:18px;display:flex;align-items:center;padding:3px;border:1px solid rgba(87,182,255,.23);border-radius:10px;background:rgba(7,21,36,.9);box-shadow:0 10px 28px rgba(0,0,0,.18);backdrop-filter:blur(12px)}.control{height:34px;padding:0 12px;border:0;border-right:1px solid var(--line);background:transparent;color:#D7E6F3;font-size:10px;font-weight:800;cursor:pointer;transition:background-color .16s ease,color .16s ease}.control:last-child{border-right:0}.control:hover{background:rgba(87,182,255,.13);color:#fff}.control.icon{width:35px;padding:0;font-size:17px}.control.primary{color:var(--bright)}.mobile-picker{display:none}
+    .map-status{position:absolute;z-index:3;left:18px;top:16px;display:flex;align-items:center;gap:8px;max-width:48%;padding:7px 10px;border-left:2px solid var(--bright);background:rgba(7,21,36,.78);font-size:10px;color:var(--muted);pointer-events:none}.map-status strong{color:#E4EDF5}.map-hint{position:absolute;z-index:3;left:18px;bottom:14px;font-size:9px;color:#6F8194;pointer-events:none}.inspector{position:absolute;z-index:6;top:66px;right:18px;width:286px;max-height:calc(100% - 104px);overflow:auto;padding:18px;border:1px solid rgba(87,182,255,.25);border-radius:10px;background:rgba(9,27,44,.96);box-shadow:0 18px 42px rgba(0,0,0,.36);transition:transform .18s ease,opacity .18s ease}.inspector[data-empty="true"]{display:none}.inspector-kicker{margin:0 0 8px;font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--bright)}.inspector h2{margin:0 0 10px;font-size:19px;line-height:1.15}.inspector p{margin:0 0 12px;font-size:11px;line-height:1.55;color:var(--muted)}.inspector .value{padding:10px;border-left:2px solid var(--gold);background:var(--glass);color:#fff}.inspector-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.inspector a,.inspector button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 10px;border:1px solid rgba(189,240,255,.48);border-radius:5px;background:transparent;color:#fff;font-size:10px;font-weight:800;text-decoration:none;cursor:pointer}.inspector a:hover,.inspector button:hover,.inspector .primary-action{border-color:var(--blue);background:var(--blue)}.back-link{position:absolute;z-index:5;right:18px;bottom:14px;color:#7E9BB4;font-size:9px;text-decoration:none}.back-link:hover{color:var(--ice)}
+    .grid-dot{fill:rgba(126,180,219,.055)}.orbit{fill:none;stroke:rgba(126,180,219,.035);stroke-width:1;vector-effect:non-scaling-stroke}.cluster-frame{fill:rgba(24,83,126,.055);stroke:rgba(87,182,255,.24);stroke-width:1;stroke-dasharray:3 7;vector-effect:non-scaling-stroke;pointer-events:all;transition:opacity .15s ease,fill .24s ease,stroke .24s ease,stroke-width .24s ease}.cluster-caption{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;fill:rgba(184,213,234,.68);transition:fill .24s ease}.cluster-group.is-hovered .cluster-frame{fill:rgba(24,83,126,.11);stroke:rgba(87,182,255,.68);stroke-width:1.55}.cluster-group.is-hovered .cluster-caption{fill:var(--ice)}
+    .edge{fill:none;vector-effect:non-scaling-stroke;transition:opacity .16s ease,stroke-width .16s ease}.edge.formal{stroke:#7CC7FC;stroke-width:1.7;marker-end:url(#arrow-formal);opacity:.58}.edge.functional{stroke:rgba(130,207,255,.54);stroke-width:1.2;stroke-dasharray:8 6;marker-end:url(#arrow-functional);opacity:.43}.edge.inferred{stroke:var(--gold);stroke-width:1.25;stroke-dasharray:2 7;marker-end:url(#arrow-inferred);opacity:.5}.edge.indirect-under{stroke:rgba(241,222,252,.14);stroke-width:4;opacity:.09}.edge.indirect{stroke:rgba(203,179,225,.48);stroke-width:1;stroke-dasharray:14 6 3 6;marker-end:url(#arrow-indirect);opacity:.28}.edge.is-dimmed{opacity:.025}.edge.is-active{opacity:1;stroke-width:3}.edge-label{font-size:8px;font-weight:700;fill:#EAF5FC;paint-order:stroke;stroke:var(--deep);stroke-width:4;stroke-linejoin:miter;opacity:0;transition:opacity .16s ease;pointer-events:none}.edge-label.is-active{opacity:1}
+    .node{cursor:pointer;transition:opacity .16s ease}.node .node-shape{vector-effect:non-scaling-stroke;transition:stroke-width .16s ease,fill .16s ease,filter .16s ease}.node text{pointer-events:none;text-anchor:middle;fill:#F5FAFE}.node .node-title{font-size:10.5px;font-weight:800}.node.application .node-title{font-size:9.5px}.node .node-meta{font-size:7.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;fill:#8096AA}.node.is-dimmed{opacity:.1}.node.is-active .node-shape{stroke-width:3;filter:drop-shadow(0 0 7px rgba(87,182,255,.45))}.node:hover .node-shape{stroke-width:2.5}.node:focus-visible{outline:none}.node:focus-visible .node-shape{stroke-width:3;stroke:#fff}.node.root .node-shape{fill:#0D2A43;stroke:var(--bright);stroke-width:2}.node.domain .node-shape{stroke-width:1.6}.node.domain.blue .node-shape{fill:rgba(11,94,215,.3);stroke:#5CB8FA}.node.domain.green .node-shape{fill:rgba(12,104,78,.31);stroke:var(--green)}.node.domain.purple .node-shape{fill:rgba(103,52,142,.3);stroke:var(--purple)}.node.hub .node-shape{fill:#0D2A43;stroke:var(--node-accent,var(--bright));stroke-width:1.6}.node.application .node-shape{fill:#102B42;stroke:var(--node-accent,var(--bright));stroke-width:1.45}.node.capability .node-shape{fill:rgba(104,64,137,.22);stroke:#C996F5;stroke-width:1.4}.node.person .node-shape{fill:rgba(87,182,255,.13);stroke:#7CC7FC;stroke-width:1.5}.node.partner .node-shape{fill:rgba(20,116,86,.2);stroke:#4CD29E;stroke-width:1.4}
+    .node.domain.blue .node-shape{fill:#082B5B}.node.domain.green .node-shape{fill:#073D38}.node.domain.purple .node-shape{fill:#2D1A45}
+    .cluster-toggle{cursor:pointer}.cluster-toggle rect{fill:#071524;stroke:rgba(87,182,255,.68);stroke-width:1;rx:5;vector-effect:non-scaling-stroke}.cluster-toggle text{font-size:14px;font-weight:700;fill:#DCECF8;text-anchor:middle;pointer-events:none}.cluster-toggle:hover rect,.cluster-toggle:focus-visible rect{fill:var(--blue);stroke-width:2}.cluster-toggle:focus-visible{outline:none}.badge-count{font-size:8px;font-weight:800;fill:var(--ice);text-anchor:middle;pointer-events:none}.project-badge rect{fill:#071524;stroke:var(--node-accent,var(--bright));stroke-width:.8;vector-effect:non-scaling-stroke}.project-badge text{font-size:6px;font-weight:900;letter-spacing:.13em;fill:#DCECF8;text-anchor:middle}.node.is-active .project-badge rect{fill:var(--node-accent,var(--bright))}.node.is-active .project-badge text{fill:#061321}
+    .project-badge text{font-size:5.4px;font-weight:800;letter-spacing:.035em}
+    .lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-stopped{overflow:hidden}.lenis.lenis-smooth iframe{pointer-events:none}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+    @media print{html,body{width:1920px;height:1080px}.app{width:1920px;height:1080px}.map-controls,.map-hint,.back-link{display:none}.inspector{box-shadow:none}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-token" aria-hidden="true">AI</div>
+      <div class="title-block">
+        <p class="eyebrow">AI exploration · China Design</p>
+        <h1>Two engines. One connected capability network.</h1>
+        <p>Human judgment × reusable AI workflows × governed assets × shared practice</p>
+      </div>
+      <div class="header-actions">
+        <nav class="theme-toggle" aria-label="Display theme"><a href="AI_Exploration_One_Pager.html">Light</a><a href="index.html" aria-current="page">Dark</a></nav>
+        <img class="logo" src="assets/Philips_logo_white_2025_RGB.png" alt="Philips">
+      </div>
+    </header>
+
+    <section class="network-bar" aria-label="Network summary and views">
+      <div class="network-summary">
+        <strong>3 domains · 9 sub-tracks · 31 nodes · 45 relationships</strong>
+        <span>Formal structure anchors the map; application clusters expose cross-boundary delivery and learning.</span>
+      </div>
+      <div class="view-switch" role="group" aria-label="Network lens">
+        <button class="view-button" id="networkLens" type="button" aria-pressed="true">Network</button>
+        <button class="view-button" id="formalLens" type="button" aria-pressed="false">Formal lens</button>
+        <button class="view-button" id="projectLens" type="button" aria-pressed="false">AI projects</button>
+      </div>
+      <div class="legend" aria-label="Relationship filters">
+        <button class="legend-item" type="button" data-edge-filter="formal" aria-pressed="true"><span class="sample formal"></span><span>Formal structure</span></button>
+        <button class="legend-item" type="button" data-edge-filter="functional" aria-pressed="true"><span class="sample functional"></span><span>Functional delivery</span></button>
+        <button class="legend-item" type="button" data-edge-filter="inferred" aria-pressed="true"><span class="sample inferred"></span><span>Inferred opportunity</span></button>
+        <button class="legend-item" type="button" data-edge-filter="indirect" aria-pressed="true"><span class="sample indirect"></span><span>Indirect knowledge flow</span></button>
+      </div>
+      <label class="mobile-picker"><span class="sr-only">Jump to a network node</span><select id="nodePicker"><option value="">Jump to a node…</option></select></label>
+    </section>
+
+    <section class="workspace" aria-label="China Design AI exploration network">
+      <div class="map-shell">
+        <div class="map-status" id="mapStatus" aria-live="polite"><strong>Overview</strong><span>All relationships visible</span></div>
+        <nav class="map-controls" aria-label="Map controls">
+          <button class="control icon" id="zoomOut" type="button" aria-label="Zoom out" aria-keyshortcuts="-">−</button>
+          <button class="control icon" id="zoomIn" type="button" aria-label="Zoom in" aria-keyshortcuts="+">+</button>
+          <button class="control primary" id="fit" type="button" aria-keyshortcuts="0 Escape">Fit all</button>
+          <button class="control" id="toggleClusters" type="button">Collapse apps</button>
+        </nav>
+        <svg id="network" viewBox="-250 0 1900 900" role="img" aria-labelledby="networkTitle networkDesc" data-lenis-prevent-wheel data-lenis-prevent-touch>
+          <title id="networkTitle">China Design AI exploration network</title>
+          <desc id="networkDesc">An interactive hierarchy and relationship map. Use the controls to zoom, pan, fit the overview and collapse application clusters.</desc>
+          <defs>
+            <pattern id="dotGrid" width="28" height="28" patternUnits="userSpaceOnUse"><circle class="grid-dot" cx="1.5" cy="1.5" r="1.2"></circle></pattern>
+            <marker id="arrow-formal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#BDF0FF"></path></marker>
+            <marker id="arrow-functional" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#BDF0FF" stroke-width="2"></path></marker>
+            <marker id="arrow-inferred" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M6 1 L11 6 L6 11 L1 6 Z" fill="#FCA708"></path></marker>
+            <marker id="arrow-indirect" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#F1DEFC" stroke-width="1.5"></path></marker>
+          </defs>
+          <rect x="-300" width="2000" height="900" fill="url(#dotGrid)"></rect>
+          <g id="viewport">
+            <g aria-hidden="true"><ellipse class="orbit" cx="700" cy="370" rx="590" ry="265"></ellipse><ellipse class="orbit" cx="700" cy="410" rx="430" ry="185"></ellipse></g>
+            <g id="clusterLayer"></g>
+            <g id="edgeLayer"></g>
+            <g id="labelLayer"></g>
+            <g id="nodeLayer"></g>
+          </g>
+        </svg>
+        <div class="map-hint">Click a node to focus · click the canvas to clear · double-click an application to open its demo</div>
+        <aside class="inspector" id="inspector" data-empty="true" aria-live="polite" data-lenis-prevent></aside>
+        <a class="back-link" href="AI_Exploration_One_Pager.html">View original one-page version ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script>
+    const nodes = [
+      {id:'root',kind:'root',x:700,y:75,w:240,h:78,lines:['China Design AI','exploration network'],meta:'Shared direction',description:'Design thinking remains the human-centered method. AI accelerates evidence synthesis, prototyping, asset creation and learning.'},
+      {id:'innovation',kind:'domain',tone:'blue',x:345,y:215,w:225,h:68,lines:['01 · Innovation','and co-creation'],meta:'Business engine',description:'Reusable agentic workflows combine global Design AI models with China business contexts, systems and local tools.',value:'Co-creation cycle: 3–4 weeks → 1 week'},
+      {id:'marketing',kind:'domain',tone:'green',x:1055,y:215,w:225,h:68,lines:['02 · Marketing','and asset management'],meta:'Business engine',description:'A connected Microsoft ecosystem supports governed creation, release, reuse and learning across marketing assets.',value:'Brand queries: save ~8 hours/week'},
+      {id:'foundation',kind:'domain',tone:'purple',x:700,y:602,w:235,h:68,lines:['03 · Capability','foundation'],meta:'Shared foundation',description:'The China Design AI community connects disciplines, tools, skills, governance partners and global practice.'},
+
+      {id:'hub-innovation',kind:'hub',cluster:'c-innovation',accent:'#0B5ED7',x:155,y:340,w:156,h:52,lines:['China','innovation'],meta:'Sub-track',description:'VPC and product-management agents turn evidence into reusable innovation workflows for China.'},
+      {id:'hub-cocreation',kind:'hub',cluster:'c-cocreation',accent:'#0B5ED7',x:345,y:340,w:156,h:52,lines:['Customer','co-creation'],meta:'Sub-track',description:'Customer 360 and hospital visualization accelerate preparation, alignment and co-creation report-out.'},
+      {id:'hub-code',kind:'hub',cluster:'c-code',accent:'#0B5ED7',x:535,y:340,w:156,h:52,lines:['Product design','to code'],meta:'Sub-track',description:'Design-to-code workflows are being validated through WeConnect, Regina 2.0 and Voice UX.'},
+      {id:'vpc',kind:'application',cluster:'c-innovation',accent:'#BDF0FF',x:105,y:462,r:38,lines:['VPC','agent'],meta:'Application',url:'VPC_Pipeline_Case.html',description:'Agentic workflow for China innovation and customer co-creation.'},
+      {id:'pm',kind:'application',cluster:'c-innovation',accent:'#BDF0FF',x:205,y:462,r:38,lines:['PM community','agent'],meta:'Application',url:'PM_Community_Case.html',description:'Customer Signal Hub supporting structured feedback and product management learning.'},
+      {id:'pitch',kind:'application',cluster:'c-cocreation',accent:'#BDF0FF',x:295,y:462,r:38,lines:['Customer','pitch agent'],meta:'Application',url:'Customer_360_Cocreation_Case.html',description:'Customer 360 support for evidence-based co-creation and pitch preparation.'},
+      {id:'hospital',kind:'application',cluster:'c-cocreation',accent:'#BDF0FF',x:395,y:462,r:38,lines:['Hospital design','visualization'],meta:'Application',url:'Azurion_Eye_Case.html',description:'Rapid visualization for hospital design engagement and concept alignment.'},
+      {id:'design-code',kind:'application',cluster:'c-code',accent:'#BDF0FF',x:485,y:462,r:38,lines:['Design-to-code','workflow'],meta:'Application',description:'Accelerates product design implementation from approximately 8 hours to 2–3 hours.'},
+      {id:'projects',kind:'application',cluster:'c-code',accent:'#BDF0FF',x:585,y:462,r:38,lines:['WeConnect','Regina · Voice UX'],meta:'Projects',description:'Carrier projects validating product design-to-code workflows.'},
+
+      {id:'hub-brand',kind:'hub',cluster:'c-brand',accent:'#008800',x:865,y:340,w:156,h:52,lines:['Brand','Buddy'],meta:'Sub-track',description:'A trusted front door for brand answers, core assets, templates and guidance.'},
+      {id:'hub-governance',kind:'hub',cluster:'c-governance',accent:'#008800',x:1055,y:340,w:156,h:52,lines:['Agentic asset','governance'],meta:'Sub-track',description:'End-to-end lifecycle management links request, creation, approval and release with traceable metadata and rights.'},
+      {id:'hub-self',kind:'hub',cluster:'c-self',accent:'#008800',x:1245,y:340,w:156,h:52,lines:['Self-service','creation'],meta:'Sub-track',description:'Copilot skills, Create and local templates enable faster, governed self-service design.'},
+      {id:'brand-buddy',kind:'application',cluster:'c-brand',accent:'#ADFFB5',x:865,y:462,r:42,lines:['Intelligent','brand Q&A'],meta:'Application',url:'Brand_Buddy_Demo.html',description:'Trusted access to brand assets, templates and guidance through the Central Marketing Portal.'},
+      {id:'lifecycle',kind:'application',cluster:'c-governance',accent:'#ADFFB5',x:1055,y:462,r:42,lines:['Assets lifecycle','management'],meta:'Application',url:'Asset_Lifecycle_Demo.html',description:'Connects request, creation, approval and release with metadata, taxonomy, rights and AI traceability.'},
+      {id:'self-service',kind:'application',cluster:'c-self',accent:'#ADFFB5',x:1245,y:462,r:42,lines:['Copilot design','self-service'],meta:'Application',description:'PPT skills, Word skills, Copilot Create and local templates enable governed self-service design.'},
+
+      {id:'hub-community',kind:'hub',cluster:'c-community',accent:'#A80DF2',x:400,y:730,w:158,h:52,lines:['Community','and sharing'],meta:'Capability hub',description:'China disciplines and global design exchange patterns, reusable outputs and lessons learned.'},
+      {id:'hub-tools',kind:'hub',cluster:'c-tools',accent:'#A80DF2',x:770,y:730,w:158,h:52,lines:['Tools, skills','and MCP'],meta:'Capability hub',description:'A common toolchain and reusable skills make experiments easier to repeat and scale.'},
+      {id:'hub-partners',kind:'hub',cluster:'c-partners',accent:'#A80DF2',x:1140,y:730,w:158,h:52,lines:['Governance','partners'],meta:'Capability hub',description:'Brand, RA, Legal, IP, IT and Security shape safe internal and supplier AI use.'},
+      {id:'china-bus',kind:'capability',cluster:'c-community',x:280,y:832,w:88,h:44,lines:['China BUs'],meta:'Organisation'},
+      {id:'studio-lead',kind:'person',cluster:'c-community',x:400,y:832,w:96,h:44,lines:['Shanghai','studio lead'],meta:'Person / coordinator',description:'Coordinates designers across BUs and disciplines, connects local practice with global teams and turns learning into shared capability.'},
+      {id:'global-design',kind:'capability',cluster:'c-community',x:520,y:832,w:88,h:44,lines:['Global design'],meta:'Organisation'},
+      {id:'atelier',kind:'capability',cluster:'c-tools',x:650,y:832,w:90,h:44,lines:['Agent Atelier'],meta:'Method'},
+      {id:'design-tools',kind:'capability',cluster:'c-tools',x:770,y:832,w:90,h:44,lines:['Figma · Miro','Vizcom'],meta:'Design tools'},
+      {id:'ai-tools',kind:'capability',cluster:'c-tools',x:890,y:832,w:90,h:44,lines:['Gemini · Codex','Copilot 365'],meta:'AI tools'},
+      {id:'brand-ra',kind:'partner',cluster:'c-partners',x:1030,y:832,w:94,h:44,lines:['Brand · RA'],meta:'Governance'},
+      {id:'legal-ip',kind:'partner',cluster:'c-partners',x:1140,y:832,w:94,h:44,lines:['Legal · IP'],meta:'Governance'},
+      {id:'it-security',kind:'partner',cluster:'c-partners',x:1250,y:832,w:94,h:44,lines:['IT · Security'],meta:'Governance'}
+    ];
+
+    const clusters = [
+      {id:'c-innovation',hub:'hub-innovation',title:'01.1 · Innovation'},
+      {id:'c-cocreation',hub:'hub-cocreation',title:'01.2 · Co-creation'},
+      {id:'c-code',hub:'hub-code',title:'01.3 · Design to code'},
+      {id:'c-brand',hub:'hub-brand',title:'02.1 · Brand Buddy'},
+      {id:'c-governance',hub:'hub-governance',title:'02.2 · Asset governance'},
+      {id:'c-self',hub:'hub-self',title:'02.3 · Self-service'},
+      {id:'c-community',hub:'hub-community',title:'Community'},
+      {id:'c-tools',hub:'hub-tools',title:'Enablement'},
+      {id:'c-partners',hub:'hub-partners',title:'Governance'}
+    ];
+
+    const edges = [
+      {source:'root',target:'innovation',type:'formal',label:'direction'},
+      {source:'root',target:'marketing',type:'formal',label:'direction'},
+      {source:'root',target:'foundation',type:'formal',label:'shared capability'},
+      {source:'innovation',target:'hub-innovation',type:'formal'},
+      {source:'innovation',target:'hub-cocreation',type:'formal'},
+      {source:'innovation',target:'hub-code',type:'formal'},
+      {source:'marketing',target:'hub-brand',type:'formal'},
+      {source:'marketing',target:'hub-governance',type:'formal'},
+      {source:'marketing',target:'hub-self',type:'formal'},
+      {source:'foundation',target:'hub-community',type:'formal'},
+      {source:'foundation',target:'hub-tools',type:'formal'},
+      {source:'foundation',target:'hub-partners',type:'formal'},
+      {source:'hub-innovation',target:'vpc',type:'functional'},
+      {source:'hub-innovation',target:'pm',type:'functional'},
+      {source:'hub-cocreation',target:'pitch',type:'functional'},
+      {source:'hub-cocreation',target:'hospital',type:'functional'},
+      {source:'hub-code',target:'design-code',type:'functional'},
+      {source:'hub-code',target:'projects',type:'functional'},
+      {source:'hub-brand',target:'brand-buddy',type:'functional'},
+      {source:'hub-governance',target:'lifecycle',type:'functional'},
+      {source:'hub-self',target:'self-service',type:'functional'},
+      {source:'hub-community',target:'china-bus',type:'functional'},
+      {source:'hub-community',target:'studio-lead',type:'formal'},
+      {source:'hub-community',target:'global-design',type:'functional'},
+      {source:'hub-tools',target:'atelier',type:'functional'},
+      {source:'hub-tools',target:'design-tools',type:'functional'},
+      {source:'hub-tools',target:'ai-tools',type:'functional'},
+      {source:'hub-partners',target:'brand-ra',type:'functional'},
+      {source:'hub-partners',target:'legal-ip',type:'functional'},
+      {source:'hub-partners',target:'it-security',type:'functional'},
+      {source:'vpc',target:'pitch',type:'inferred',label:'reuse'},
+      {source:'brand-buddy',target:'self-service',type:'inferred',label:'trusted inputs'},
+      {source:'lifecycle',target:'self-service',type:'inferred',label:'governed output'},
+      {source:'pm',target:'hub-cocreation',type:'indirect',label:'customer signals'},
+      {source:'design-code',target:'self-service',type:'indirect',label:'shared skills'},
+      {source:'atelier',target:'hub-innovation',type:'indirect',label:'methods'},
+      {source:'atelier',target:'hub-cocreation',type:'indirect'},
+      {source:'design-tools',target:'hub-code',type:'functional',label:'workflow'},
+      {source:'ai-tools',target:'hub-self',type:'functional',label:'creation'},
+      {source:'brand-ra',target:'hub-brand',type:'indirect',label:'brand guidance'},
+      {source:'legal-ip',target:'hub-governance',type:'functional',label:'rights'},
+      {source:'it-security',target:'hub-governance',type:'functional',label:'platform'},
+      {source:'global-design',target:'hub-community',type:'indirect',label:'global sharing'},
+      {source:'china-bus',target:'hub-innovation',type:'indirect',label:'local context'},
+      {source:'china-bus',target:'hub-brand',type:'indirect'}
+    ];
+
+    const svg = document.getElementById('network');
+    const viewport = document.getElementById('viewport');
+    const clusterLayer = document.getElementById('clusterLayer');
+    const edgeLayer = document.getElementById('edgeLayer');
+    const labelLayer = document.getElementById('labelLayer');
+    const nodeLayer = document.getElementById('nodeLayer');
+    const inspector = document.getElementById('inspector');
+    const mapStatus = document.getElementById('mapStatus');
+    const nodePicker = document.getElementById('nodePicker');
+    const nodeById = new Map(nodes.map(node => [node.id,node]));
+    const clusterById = new Map(clusters.map(cluster => [cluster.id,cluster]));
+    const collapsed = new Set();
+    const activeTypes = new Set(['formal','functional','inferred','indirect']);
+    let selectedId = null;
+    let projectMode = false;
+    let transform = {x:0,y:0,k:1};
+    let panning = false;
+    let pointerStart = null;
+
+    const ns = 'http://www.w3.org/2000/svg';
+    function el(name,attrs={}){const item=document.createElementNS(ns,name);Object.entries(attrs).forEach(([key,value])=>item.setAttribute(key,value));return item}
+    function visibleNode(id){
+      const node=nodeById.get(id);
+      if(!node || !node.cluster || !collapsed.has(node.cluster) || clusterById.get(node.cluster).hub===id)return node;
+      return nodeById.get(clusterById.get(node.cluster).hub);
+    }
+    function nodeVisible(node){return !node.cluster || !collapsed.has(node.cluster) || clusterById.get(node.cluster).hub===node.id}
+    function edgePath(a,b,type){
+      const dx=b.x-a.x,dy=b.y-a.y;
+      if(type==='formal') return `M${a.x},${a.y} C${a.x},${a.y+dy*.45} ${b.x},${b.y-dy*.45} ${b.x},${b.y}`;
+      const bend=Math.min(90,Math.abs(dx)*.18+Math.abs(dy)*.08);
+      const sign=dx===0?1:Math.sign(dx);
+      return `M${a.x},${a.y} C${a.x+sign*bend},${a.y+dy*.3} ${b.x-sign*bend},${b.y-dy*.3} ${b.x},${b.y}`;
+    }
+    function clusterBounds(cluster){
+      const members=nodes.filter(node=>node.cluster===cluster.id && nodeVisible(node));
+      const xs=members.flatMap(node=>[node.x-(node.r||node.w/2),node.x+(node.r||node.w/2)]);
+      const ys=members.flatMap(node=>[node.y-(node.r||node.h/2),node.y+(node.r||node.h/2)]);
+      return {x:Math.min(...xs)-18,y:Math.min(...ys)-28,w:Math.max(...xs)-Math.min(...xs)+36,h:Math.max(...ys)-Math.min(...ys)+48};
+    }
+    function animateClusterHover(id,active){
+      const group=clusterLayer.querySelector(`[data-cluster="${id}"]`);if(!group)return;
+      const frame=group.querySelector('.cluster-frame');group.classList.toggle('is-hovered',active);
+      if(reducedMotion||!window.gsap)return;
+      gsap.killTweensOf(frame);
+      if(active)gsap.fromTo(frame,{strokeDashoffset:0},{strokeDashoffset:-28,duration:.72,ease:'none',repeat:-1});
+      else gsap.to(frame,{strokeDashoffset:0,duration:.3,ease:'power2.out',clearProps:'strokeDashoffset'});
+    }
+    function renderClusters(){
+      if(window.gsap)gsap.killTweensOf('.cluster-frame');
+      clusterLayer.replaceChildren();
+      clusters.forEach(cluster=>{
+        const bounds=clusterBounds(cluster);
+        const group=el('g',{class:'cluster-group','data-cluster':cluster.id});
+        group.append(el('ellipse',{class:'cluster-frame',cx:bounds.x+bounds.w/2,cy:bounds.y+bounds.h/2,rx:bounds.w*.58,ry:bounds.h*.62}));
+        const caption=el('text',{class:'cluster-caption',x:bounds.x+bounds.w/2,y:bounds.y+10,'text-anchor':'middle'});caption.textContent=cluster.title;group.append(caption);
+        const toggle=el('g',{class:'cluster-toggle',role:'button',tabindex:'0','aria-label':`${collapsed.has(cluster.id)?'Expand':'Collapse'} ${cluster.title}`,transform:`translate(${bounds.x+bounds.w-20} ${bounds.y+2})`});
+        toggle.append(el('rect',{width:22,height:22}));const mark=el('text',{x:11,y:16});mark.textContent=collapsed.has(cluster.id)?'+':'−';toggle.append(mark);
+        toggle.addEventListener('click',event=>{event.stopPropagation();toggleCluster(cluster.id)});
+        toggle.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleCluster(cluster.id)}});
+        group.append(toggle);
+        group.addEventListener('pointerenter',()=>animateClusterHover(cluster.id,true));group.addEventListener('pointerleave',()=>animateClusterHover(cluster.id,false));
+        group.addEventListener('focusin',()=>animateClusterHover(cluster.id,true));group.addEventListener('focusout',()=>animateClusterHover(cluster.id,false));
+        clusterLayer.append(group);
+      });
+    }
+    function relatedSet(id){
+      const set=new Set([id]);
+      const selected=nodeById.get(id);
+      if(selected?.cluster){nodes.filter(node=>node.cluster===selected.cluster).forEach(node=>set.add(node.id))}
+      edges.forEach(edge=>{
+        if(edge.source===id)set.add(edge.target);
+        if(edge.target===id)set.add(edge.source);
+      });
+      return set;
+    }
+    function projectFocusSet(){
+      const projects=new Set(nodes.filter(node=>node.kind==='application').map(node=>node.id));const set=new Set(projects);
+      edges.forEach(edge=>{if(projects.has(edge.source)||projects.has(edge.target)){set.add(edge.source);set.add(edge.target)}});return set;
+    }
+    function renderEdges(){
+      edgeLayer.replaceChildren();labelLayer.replaceChildren();
+      const used=new Set();
+      const related=selectedId?relatedSet(selectedId):(projectMode?projectFocusSet():null);
+      const hasFocus=Boolean(selectedId||projectMode);
+      edges.forEach((edge,index)=>{
+        if(!activeTypes.has(edge.type))return;
+        const source=visibleNode(edge.source),target=visibleNode(edge.target);
+        if(!source||!target||source.id===target.id)return;
+        const key=`${source.id}-${target.id}-${edge.type}`;if(used.has(key))return;used.add(key);
+        const active=!hasFocus||(projectMode?(nodeById.get(edge.source)?.kind==='application'||nodeById.get(edge.target)?.kind==='application'):(related.has(edge.source)&&related.has(edge.target)));
+        if(edge.type==='indirect'){
+          const under=el('path',{class:`edge indirect-under${hasFocus&&!active?' is-dimmed':''}`,d:edgePath(source,target,edge.type),'data-source':edge.source,'data-target':edge.target});edgeLayer.append(under);
+        }
+        const path=el('path',{class:`edge ${edge.type}${hasFocus&&!active?' is-dimmed':''}${hasFocus&&active?' is-active':''}`,d:edgePath(source,target,edge.type),'data-source':edge.source,'data-target':edge.target});edgeLayer.append(path);
+        if(edge.label){
+          const label=el('text',{class:`edge-label${hasFocus&&active?' is-active':''}`,x:(source.x+target.x)/2,y:(source.y+target.y)/2-7});label.textContent=edge.label;labelLayer.append(label);
+        }
+      });
+    }
+    function shapeFor(node){
+      let shape;
+      if(node.kind==='root'||node.kind==='domain'){
+        shape=el('rect',{class:'node-shape',x:-node.w/2,y:-node.h/2,width:node.w,height:node.h,rx:9});
+      }else if(node.kind==='application')shape=el('rect',{class:'node-shape',x:-node.r*1.05,y:-node.r*.72,width:node.r*2.1,height:node.r*1.44,rx:7});
+      else if(node.kind==='capability')shape=el('polygon',{class:'node-shape',points:`0,${-node.h/2} ${node.w/2},0 0,${node.h/2} ${-node.w/2},0`});
+      else if(node.kind==='person')shape=el('rect',{class:'node-shape',x:-node.w/2,y:-node.h/2,width:node.w,height:node.h,rx:node.h/2});
+      else shape=el('rect',{class:'node-shape',x:-node.w/2,y:-node.h/2,width:node.w,height:node.h});
+      return shape;
+    }
+    function renderNodes(){
+      nodeLayer.replaceChildren();
+      const related=selectedId?relatedSet(selectedId):(projectMode?projectFocusSet():null);
+      const hasFocus=Boolean(selectedId||projectMode);
+      nodes.filter(nodeVisible).forEach(node=>{
+        const active=hasFocus&&(related.has(node.id)||node.id===selectedId);
+        const group=el('g',{class:`node ${node.kind}${node.tone?' '+node.tone:''}${hasFocus&&!active?' is-dimmed':''}${active?' is-active':''}`,transform:`translate(${node.x} ${node.y})`,tabindex:'0',role:'button','aria-label':`${node.lines.join(' ')}. ${node.meta||node.kind}`,'data-id':node.id,style:`--node-accent:${node.accent||'#BDF0FF'}`});
+        group.append(shapeFor(node));
+        const titleY=node.kind==='application'?(node.lines.length===1?-1:-7):(node.lines.length===1?4:node.lines.length===2?-3:-9);
+        const title=el('text',{class:'node-title',y:titleY});
+        node.lines.forEach((line,i)=>{const span=el('tspan',{x:0,dy:i===0?0:13});span.textContent=line;title.append(span)});group.append(title);
+        if(node.kind==='application'){
+          const projectBadge=el('g',{class:'project-badge',transform:`translate(0 ${node.r*.72-7})`});
+          projectBadge.append(el('rect',{x:-15,y:-4.5,width:30,height:9,rx:4.5}));const projectText=el('text',{y:1.8});projectText.textContent='project';projectBadge.append(projectText);group.append(projectBadge);
+        }
+        if(node.meta&&node.kind!=='application'){
+          const meta=el('text',{class:'node-meta',y:(node.lines.length>1?24:17)});meta.textContent=node.meta;group.append(meta);
+        }
+        if(node.cluster&&clusterById.get(node.cluster).hub===node.id&&collapsed.has(node.cluster)){
+          const count=nodes.filter(item=>item.cluster===node.cluster).length-1;const badge=el('g',{transform:`translate(${node.w/2-12} ${-node.h/2+12})`});badge.append(el('circle',{r:10,fill:'#0B5ED7',stroke:'#BDF0FF'}));const countText=el('text',{class:'badge-count',y:3});countText.textContent=count;badge.append(countText);group.append(badge);
+        }
+        group.addEventListener('click',event=>{event.stopPropagation();selectNode(node.id,true)});
+        group.addEventListener('dblclick',event=>{event.stopPropagation();if(node.url)location.href=node.url});
+        group.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNode(node.id,true)}});
+        if(node.cluster){group.addEventListener('pointerenter',()=>animateClusterHover(node.cluster,true));group.addEventListener('pointerleave',()=>animateClusterHover(node.cluster,false));group.addEventListener('focus',()=>animateClusterHover(node.cluster,true));group.addEventListener('blur',()=>animateClusterHover(node.cluster,false))}
+        nodeLayer.append(group);
+      });
+    }
+    function render(){renderClusters();renderEdges();renderNodes()}
+    [
+      {label:'Primary structure',filter:node=>node.kind==='root'||node.kind==='domain'},
+      {label:'Sub-tracks',filter:node=>node.meta==='Sub-track'},
+      {label:'Applications',filter:node=>node.kind==='application'},
+      {label:'People and foundation',filter:node=>!['root','domain','application'].includes(node.kind)&&node.meta!=='Sub-track'}
+    ].forEach(group=>{
+      const optgroup=document.createElement('optgroup');optgroup.label=group.label;
+      nodes.filter(group.filter).forEach(node=>{const option=document.createElement('option');option.value=node.id;option.textContent=node.lines.join(' ');optgroup.append(option)});
+      nodePicker.append(optgroup);
+    });
+    function updateInspector(node){
+      inspector.dataset.empty=node?'false':'true';
+      if(!node){inspector.replaceChildren();return}
+      const kind=node.meta||node.kind;const value=node.value?`<p class="value">${node.value}</p>`:'';const open=node.url?`<a class="primary-action" href="${node.url}">Open demo ↗</a>`:'';const cluster=node.cluster?`<button type="button" data-toggle="${node.cluster}">${collapsed.has(node.cluster)?'Expand':'Collapse'} cluster</button>`:'';
+      inspector.innerHTML=`<p class="inspector-kicker">${kind}</p><h2>${node.lines.join(' ')}</h2><p>${node.description||'A connected part of the China Design AI capability network.'}</p>${value}<div class="inspector-actions">${open}${cluster}<button type="button" data-overview>Back to overview</button></div>`;
+      const button=inspector.querySelector('[data-toggle]');if(button)button.addEventListener('click',()=>toggleCluster(button.dataset.toggle));
+      inspector.querySelector('[data-overview]').addEventListener('click',fitOverview);
+    }
+    function selectNode(id,zoom){
+      projectMode=false;selectedId=id;const node=nodeById.get(id);
+      if(node.cluster&&collapsed.has(node.cluster)&&clusterById.get(node.cluster).hub!==id){collapsed.delete(node.cluster);renderClusters();updateClusterButton()}
+      renderEdges();renderNodes();updateInspector(node);nodePicker.value=id;
+      const count=edges.filter(edge=>activeTypes.has(edge.type)&&(edge.source===id||edge.target===id)).length;
+      mapStatus.innerHTML=`<strong>Overview › ${node.lines.join(' ')}</strong><span>${count} visible direct relationships</span>`;
+      if(zoom)focusOn(id);updateFilterUI();animateSelection();
+    }
+    function clearSelection(){projectMode=false;selectedId=null;nodePicker.value='';renderEdges();renderNodes();updateInspector(null);mapStatus.innerHTML=`<strong>Overview</strong><span>${activeTypes.size===4?'All':activeTypes.size+' of 4'} relationship types visible</span>`;updateFilterUI()}
+    function updateClusterButton(){document.getElementById('toggleClusters').textContent=collapsed.size?'Expand apps':'Collapse apps'}
+    function toggleCluster(id){
+      projectMode=false;collapsed.has(id)?collapsed.delete(id):collapsed.add(id);render();if(selectedId&&!nodeVisible(nodeById.get(selectedId))){selectedId=clusterById.get(id).hub;selectNode(selectedId,false)}else if(selectedId)updateInspector(nodeById.get(selectedId));
+      updateClusterButton();updateFilterUI();animateGraphRefresh();
+    }
+    function applyTransform(animate=false){viewport.style.transition=animate?'transform .24s ease':'none';viewport.setAttribute('transform',`translate(${transform.x} ${transform.y}) scale(${transform.k})`);if(animate)setTimeout(()=>viewport.style.transition='none',260)}
+    function focusOn(id){
+      const focusNodes=[...relatedSet(id)].map(visibleNode).filter(Boolean);
+      const unique=[...new Map(focusNodes.map(node=>[node.id,node])).values()];
+      const bounds=unique.reduce((box,node)=>{
+        const rx=node.r||node.w/2,ry=node.r||node.h/2;
+        return {minX:Math.min(box.minX,node.x-rx),maxX:Math.max(box.maxX,node.x+rx),minY:Math.min(box.minY,node.y-ry),maxY:Math.max(box.maxY,node.y+ry)};
+      },{minX:Infinity,maxX:-Infinity,minY:Infinity,maxY:-Infinity});
+      const width=Math.max(180,bounds.maxX-bounds.minX+120),height=Math.max(150,bounds.maxY-bounds.minY+120);
+      const view=svg.viewBox.baseVal;
+      const scale=Math.max(1.08,Math.min(2.2,Math.min(view.width*.68/width,view.height*.78/height)));
+      const centerX=(bounds.minX+bounds.maxX)/2,centerY=(bounds.minY+bounds.maxY)/2;
+      transform={k:scale,x:view.x+view.width/2-centerX*scale,y:view.y+view.height/2-centerY*scale};applyTransform(true);
+    }
+    function fitOverview(){transform={x:0,y:0,k:1};applyTransform(true);clearSelection()}
+    function zoomAt(factor,cx=700,cy=450){const next=Math.max(.55,Math.min(2.8,transform.k*factor));transform.x=cx-(cx-transform.x)*(next/transform.k);transform.y=cy-(cy-transform.y)*(next/transform.k);transform.k=next;applyTransform()}
+    svg.addEventListener('wheel',event=>{event.preventDefault();const point=svg.createSVGPoint();point.x=event.clientX;point.y=event.clientY;const local=point.matrixTransform(svg.getScreenCTM().inverse());zoomAt(event.deltaY<0?1.1:.9,local.x,local.y)},{passive:false});
+    svg.addEventListener('pointerdown',event=>{if(event.target.closest('.node,.cluster-toggle'))return;panning=true;svg.classList.add('is-panning');svg.setPointerCapture(event.pointerId);pointerStart={x:event.clientX,y:event.clientY,tx:transform.x,ty:transform.y}});
+    svg.addEventListener('pointermove',event=>{if(!panning)return;const box=svg.getBoundingClientRect(),view=svg.viewBox.baseVal;transform.x=pointerStart.tx+(event.clientX-pointerStart.x)*(view.width/box.width);transform.y=pointerStart.ty+(event.clientY-pointerStart.y)*(view.height/box.height);applyTransform()});
+    svg.addEventListener('pointerup',()=>{panning=false;svg.classList.remove('is-panning')});svg.addEventListener('pointercancel',()=>{panning=false;svg.classList.remove('is-panning')});
+    svg.addEventListener('click',event=>{if(!event.target.closest('.node,.cluster-toggle'))clearSelection()});
+    nodePicker.addEventListener('change',()=>nodePicker.value?selectNode(nodePicker.value,true):fitOverview());
+    const filterButtons=[...document.querySelectorAll('[data-edge-filter]')];
+    const networkLens=document.getElementById('networkLens');
+    const formalLens=document.getElementById('formalLens');
+    const projectLens=document.getElementById('projectLens');
+    function updateFilterUI(){
+      filterButtons.forEach(button=>button.setAttribute('aria-pressed',String(activeTypes.has(button.dataset.edgeFilter))));
+      const isNetwork=!projectMode&&activeTypes.size===4&&!collapsed.size;
+      const isFormal=!projectMode&&activeTypes.size===1&&activeTypes.has('formal')&&collapsed.size===clusters.length;
+      networkLens.setAttribute('aria-pressed',String(isNetwork));formalLens.setAttribute('aria-pressed',String(isFormal));projectLens.setAttribute('aria-pressed',String(projectMode));
+    }
+    function setLens(mode){
+      if(mode==='projects'){
+        projectMode=true;selectedId=null;nodePicker.value='';collapsed.clear();activeTypes.clear();['formal','functional','inferred','indirect'].forEach(type=>activeTypes.add(type));
+        transform={x:0,y:0,k:1};applyTransform(true);render();updateInspector(null);updateClusterButton();updateFilterUI();
+        const count=nodes.filter(node=>node.kind==='application').length;mapStatus.innerHTML=`<strong>Team AI projects</strong><span>${count} projects selected · direct relationships highlighted</span>`;animateGraphRefresh();return;
+      }
+      projectMode=false;
+      activeTypes.clear();
+      if(mode==='formal'){activeTypes.add('formal');clusters.forEach(cluster=>collapsed.add(cluster.id))}
+      else{['formal','functional','inferred','indirect'].forEach(type=>activeTypes.add(type));collapsed.clear()}
+      render();fitOverview();updateClusterButton();updateFilterUI();animateGraphRefresh();
+    }
+    filterButtons.forEach(button=>button.addEventListener('click',()=>{
+      const type=button.dataset.edgeFilter;
+      activeTypes.has(type)?activeTypes.delete(type):activeTypes.add(type);
+      selectedId?selectNode(selectedId,false):clearSelection();
+      updateFilterUI();
+    }));
+    networkLens.addEventListener('click',()=>setLens('network'));formalLens.addEventListener('click',()=>setLens('formal'));projectLens.addEventListener('click',()=>setLens('projects'));
+    document.getElementById('fit').addEventListener('click',fitOverview);document.getElementById('zoomIn').addEventListener('click',()=>zoomAt(1.18));document.getElementById('zoomOut').addEventListener('click',()=>zoomAt(.84));
+    document.getElementById('toggleClusters').addEventListener('click',()=>{projectMode=false;if(collapsed.size)collapsed.clear();else clusters.forEach(cluster=>collapsed.add(cluster.id));render();clearSelection();updateClusterButton();updateFilterUI();animateGraphRefresh()});
+    window.addEventListener('keydown',event=>{if(event.key==='Escape'||event.key==='0')fitOverview();if(event.key==='+'||event.key==='=')zoomAt(1.18);if(event.key==='-')zoomAt(.84)});
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animateGraphRefresh(){
+      if(reducedMotion||!window.gsap)return;
+      gsap.fromTo('.cluster-frame',{opacity:0},{opacity:1,duration:.45,ease:'power2.out',clearProps:'opacity'});
+      gsap.fromTo('.node',{opacity:0},{opacity:1,duration:.42,stagger:.012,ease:'power2.out',clearProps:'opacity'});
+      gsap.fromTo('.node .node-shape',{scale:.94,transformOrigin:'center center'},{scale:1,duration:.42,stagger:.012,ease:'back.out(1.35)',clearProps:'transform'});
+      gsap.fromTo('.edge:not(.is-dimmed)',{opacity:0},{opacity:1,duration:.34,stagger:.006,ease:'power1.out',clearProps:'opacity'});
+    }
+    function animateSelection(){
+      if(reducedMotion||!window.gsap)return;
+      gsap.fromTo('.node.is-active',{opacity:.3},{opacity:1,duration:.38,stagger:.035,ease:'power2.out',clearProps:'opacity'});
+      gsap.fromTo('.node.is-active .node-shape',{scale:.9,transformOrigin:'center center'},{scale:1,duration:.38,stagger:.035,ease:'back.out(1.6)',clearProps:'transform'});
+      gsap.fromTo('.edge.is-active',{opacity:0},{opacity:1,duration:.42,stagger:.02,ease:'power2.out',clearProps:'opacity'});
+      gsap.fromTo(inspector,{autoAlpha:0,x:18},{autoAlpha:1,x:0,duration:.34,ease:'power3.out',clearProps:'opacity,visibility,transform'});
+    }
+    function initExperienceMotion(){
+      if(reducedMotion||!window.gsap)return;
+      const intro=gsap.timeline({defaults:{ease:'power3.out'}});
+      intro.from('.topbar > *',{opacity:0,y:-12,duration:.42,stagger:.045},0)
+        .from('.network-bar > *',{opacity:0,y:-8,duration:.36,stagger:.035},.12)
+        .from('.map-status,.map-controls',{opacity:0,y:-7,duration:.3,stagger:.035},.22)
+        .fromTo('.cluster-frame',{opacity:0,scale:.97,transformOrigin:'center center'},{opacity:1,scale:1,duration:.36,stagger:.008,clearProps:'opacity,transform'},.3)
+        .fromTo('.cluster-caption,.cluster-toggle',{opacity:0},{opacity:1,duration:.32,stagger:.008,clearProps:'opacity'},.32)
+        .fromTo('.edge',{opacity:0},{opacity:.68,duration:.34,stagger:.002,clearProps:'opacity'},.42)
+        .fromTo('.node',{opacity:0},{opacity:1,duration:.42,stagger:.008,ease:'power2.out',clearProps:'opacity'},.54)
+        .fromTo('.node .node-shape',{scale:.93,transformOrigin:'center center'},{scale:1,duration:.42,stagger:.008,ease:'back.out(1.3)',clearProps:'transform'},.54);
+      document.querySelectorAll('.theme-toggle a').forEach(link=>link.addEventListener('click',event=>{
+        if(link.hasAttribute('aria-current')){event.preventDefault();return}
+        event.preventDefault();const href=link.href;
+        gsap.to('.app',{opacity:0,duration:.24,ease:'power2.in',onComplete:()=>location.href=href});
+      }));
+      if(window.Lenis){
+        const lenis=new Lenis({autoRaf:false,smoothWheel:true,lerp:.075,wheelMultiplier:.85,syncTouch:false,anchors:true});
+        gsap.ticker.add(time=>lenis.raf(time*1000));gsap.ticker.lagSmoothing(0);window.__lenis=lenis;
+      }
+    }
+    function updateResponsiveViewBox(){svg.setAttribute('viewBox','-250 0 1900 900');fitOverview()}
+    function updateStageScale(){document.querySelector('.app').style.setProperty('--stage-scale',String(Math.min(innerWidth/1920,innerHeight/1080)))}
+    window.addEventListener('resize',updateStageScale);
+    render();updateStageScale();updateResponsiveViewBox();updateFilterUI();initExperienceMotion();
+  </script>
+</body>
+</html>
